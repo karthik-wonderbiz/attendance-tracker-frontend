@@ -1,0 +1,12 @@
+<div class="p-4  rounded-lg shadow-md">
+    <canvas class="w-full h-64" baseChart
+      [type]="'bar'"
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      (chartHover)="onChartHover($event)"
+      (chartClick)="onChartClick($event)">
+    </canvas>
+  </div>
+  

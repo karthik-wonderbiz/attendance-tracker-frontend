@@ -1,0 +1,30 @@
+<table class="min-w-full bg-white border border-gray-200 rounded-md shadow-sm">
+    <thead class="bg-gray-100 border-b border-gray-200">
+        <tr>
+            <th *ngFor="let column of columns" class="py-2 px-4 text-left text-gray-600 font-medium" [attr.colspan]="column.subColumns ? column.subColumns.length : 1">
+                {{ column.label }}
+                <ng-container *ngIf="column.subColumns">
+                    <div class="text-sm text-gray-500 mt-1 grid grid-cols-2 gap-1">
+                        <div *ngFor="let subColumn of column.subColumns" class="font-medium">{{ subColumn.label }}</div>
+                    </div>
+                </ng-container>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of data" class="border-b border-gray-200 hover:bg-gray-50">
+            <td *ngFor="let column of columns" class="py-2 px-4">
+                <ng-container *ngIf="isObject(row[column.key]); else simpleContent">
+                    <div *ngIf="column.subColumns" class="grid grid-cols-2 gap-1 text-sm text-gray-700">
+                        <div *ngFor="let subColumn of column.subColumns">
+                            {{ row[column.key][subColumn.key] }}
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #simpleContent>
+                    {{ row[column.key] }}
+                </ng-template>
+            </td>
+        </tr>
+    </tbody>
+</table>

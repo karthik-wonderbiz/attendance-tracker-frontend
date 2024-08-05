@@ -1,0 +1,12 @@
+<div class="p-4 rounded-lg shadow-md">
+  <canvas class="w-full h-64" baseChart
+    [type]="'pie'"
+    [datasets]="pieChartDatasets"
+    [labels]="pieChartLabels"
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [legend]="pieChartLegend"
+    (chartHover)="onChartHover($event)"
+    (chartClick)="onChartClick($event)">
+  </canvas>
+</div>
