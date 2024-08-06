@@ -3,4 +3,5 @@ export interface EmployeeBasicInfo {
     id: number;
     Employee: string;
     Name: string;
+    Image: string;
 }

@@ -1,194 +1,191 @@
-
 {
     "EmployeeBasicInfo": [
-        {
-            "id": 1,
-            "Employee": "4575",
-            "Name": "Mustafa Ozan"
-        },
-        {
-            "id": 2,
-            "Employee": "4570",
-            "Name": "Scott Fisher"
-        },
-        {
-            "id": 3,
-            "Employee": "4574",
-            "Name": "Jacob Walsh"
-        },
-        {
-            "id": 4,
-            "Employee": "4573",
-            "Name": "Martha Hills"
-        },
-        {
-            "id": 5,
-            "Employee": "ZY200",
-            "Name": "Vignesh TK"
-        },
-        {
-            "id": 6,
-            "Employee": "ZY198",
-            "Name": "Christine Spalding"
-        },
-        {
-            "id": 7,
-            "Employee": "ZY197",
-            "Name": "Aditi A"
-        },
-        {
-            "id": 8,
-            "Employee": "ZY197",
-            "Name": "Aditi A"
-        }
+      {
+        "id": 1,
+        "Employee": "4575",
+        "Name": "Mustafa Ozan",
+        "Image": "https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+      },
+      {
+        "id": 2,
+        "Employee": "4570",
+        "Name": "Scott Fisher",
+        "Image": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+      },
+      {
+        "id": 3,
+        "Employee": "4574",
+        "Name": "Jacob Walsh",
+        "Image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+      },
+      {
+        "id": 4,
+        "Employee": "4573",
+        "Name": "Martha Hills",
+        "Image": "https://flowbite.com/docs/images/people/profile-picture-4.jpg"
+      },
+      {
+        "id": 5,
+        "Employee": "ZY200",
+        "Name": "Vignesh TK",
+        "Image": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+      },
+      {
+        "id": 6,
+        "Employee": "ZY198",
+        "Name": "Christine Spalding",
+        "Image": "https://flowbite.com/docs/images/people/profile-picture-6.jpg"
+      },
+      {
+        "id": 7,
+        "Employee": "ZY197",
+        "Name": "Aditi A",
+        "Image": "https://flowbite.com/docs/images/people/profile-picture-7.jpg"
+      }
     ],
     "EmployeeAttendance": [
-        {
-            "id": 1,
-            "Employee": "4575",
-            "FirstIn": "10:10 AM",
-            "LastOut": "07:30 PM",
-            "TotalHours": "09:20"
-        },
-        {
-            "id": 2,
-            "Employee": "4570",
-            "FirstIn": "09:00 AM",
-            "LastOut": "06:30 PM",
-            "TotalHours": "09:30"
-        },
-        {
-            "id": 3,
-            "Employee": "4574",
-            "FirstIn": "09:00 AM",
-            "LastOut": "06:00 PM",
-            "TotalHours": "09:00"
-        },
-        {
-            "id": 4,
-            "Employee": "4573",
-            "FirstIn": "09:00 AM",
-            "LastOut": "04:37 PM",
-            "TotalHours": "07:37"
-        },
-        {
-            "id": 5,
-            "Employee": "ZY200",
-            "FirstIn": "09:00 AM",
-            "LastOut": "03:30 PM",
-            "TotalHours": "06:30"
-        },
-        {
-            "id": 6,
-            "Employee": "ZY198",
-            "FirstIn": "09:00 AM",
-            "LastOut": "03:30 PM",
-            "TotalHours": "06:30"
-        },
-        {
-            "id": 7,
-            "Employee": "ZY197",
-            "Name": "Aditi A"
-        }
+      {
+        "id": 1,
+        "Employee": "4575",
+        "FirstIn": "10:10 AM",
+        "LastOut": "07:30 PM",
+        "TotalHours": "09:20"
+      },
+      {
+        "id": 2,
+        "Employee": "4570",
+        "FirstIn": "09:00 AM",
+        "LastOut": "06:30 PM",
+        "TotalHours": "09:30"
+      },
+      {
+        "id": 3,
+        "Employee": "4574",
+        "FirstIn": "09:00 AM",
+        "LastOut": "06:00 PM",
+        "TotalHours": "09:00"
+      },
+      {
+        "id": 4,
+        "Employee": "4573",
+        "FirstIn": "09:00 AM",
+        "LastOut": "04:37 PM",
+        "TotalHours": "07:37"
+      },
+      {
+        "id": 5,
+        "Employee": "ZY200",
+        "FirstIn": "09:00 AM",
+        "LastOut": "03:30 PM",
+        "TotalHours": "06:30"
+      },
+      {
+        "id": 6,
+        "Employee": "ZY198",
+        "FirstIn": "09:00 AM",
+        "LastOut": "03:30 PM",
+        "TotalHours": "06:30"
+      }
     ],
     "EmployeeTimingDetails": [
-        {
-            "id": 1,
-            "Employee": "4575",
-            "Entry": {
-                "Early": "-",
-                "Late": "-01:10"
-            },
-            "Exit": {
-                "Early": "-",
-                "Late": "+01:30"
-            },
-            "NetHours": "+00:20",
-            "Shift": "General"
+      {
+        "id": 1,
+        "Employee": "4575",
+        "Entry": {
+          "Early": "-",
+          "Late": "-01:10"
         },
-        {
-            "id": 2,
-            "Employee": "4570",
-            "Entry": {
-                "Early": "+00:00",
-                "Late": "-"
-            },
-            "Exit": {
-                "Early": "-",
-                "Late": "+00:30"
-            },
-            "NetHours": "+00:30",
-            "Shift": "General"
+        "Exit": {
+          "Early": "-",
+          "Late": "+01:30"
         },
-        {
-            "id": 3,
-            "Employee": "4574",
-            "Entry": {
-                "Early": "+00:00",
-                "Late": "-"
-            },
-            "Exit": {
-                "Early": "-",
-                "Late": "+00:00"
-            },
-            "NetHours": "+00:00",
-            "Shift": "General"
+        "NetHours": "+00:20",
+        "Shift": "General"
+      },
+      {
+        "id": 2,
+        "Employee": "4570",
+        "Entry": {
+          "Early": "+00:00",
+          "Late": "-"
         },
-        {
-            "id": 4,
-            "Employee": "4573",
-            "Entry": {
-                "Early": "+00:00",
-                "Late": "-"
-            },
-            "Exit": {
-                "Early": "-01:23",
-                "Late": "-"
-            },
-            "NetHours": "-01:23",
-            "Shift": "General"
+        "Exit": {
+          "Early": "-",
+          "Late": "+00:30"
         },
-        {
-            "id": 5,
-            "Employee": "ZY200",
-            "Entry": {
-                "Early": "+00:00",
-                "Late": "-"
-            },
-            "Exit": {
-                "Early": "-02:30",
-                "Late": "-"
-            },
-            "NetHours": "-02:30",
-            "Shift": "General"
+        "NetHours": "+00:30",
+        "Shift": "General"
+      },
+      {
+        "id": 3,
+        "Employee": "4574",
+        "Entry": {
+          "Early": "+00:00",
+          "Late": "-"
         },
-        {
-            "id": 6,
-            "Employee": "ZY198",
-            "Entry": {
-                "Early": "+00:00",
-                "Late": "-"
-            },
-            "Exit": {
-                "Early": "-02:30",
-                "Late": "-"
-            },
-            "NetHours": "-02:30",
-            "Shift": "General"
+        "Exit": {
+          "Early": "-",
+          "Late": "+00:00"
         },
-        {
-            "id": 7,
-            "Employee": "ZY197",
-            "Entry": {
-                "Early": "+00:00",
-                "Late": "-"
-            },
-            "Exit": {
-                "Early": "-01:30",
-                "Late": "-"
-            },
-            "NetHours": "-01:30",
-            "Shift": "General"
-        }
+        "NetHours": "+00:00",
+        "Shift": "General"
+      },
+      {
+        "id": 4,
+        "Employee": "4573",
+        "Entry": {
+          "Early": "+00:00",
+          "Late": "-"
+        },
+        "Exit": {
+          "Early": "-01:23",
+          "Late": "-"
+        },
+        "NetHours": "-01:23",
+        "Shift": "General"
+      },
+      {
+        "id": 5,
+        "Employee": "ZY200",
+        "Entry": {
+          "Early": "+00:00",
+          "Late": "-"
+        },
+        "Exit": {
+          "Early": "-02:30",
+          "Late": "-"
+        },
+        "NetHours": "-02:30",
+        "Shift": "General"
+      },
+      {
+        "id": 6,
+        "Employee": "ZY198",
+        "Entry": {
+          "Early": "+00:00",
+          "Late": "-"
+        },
+        "Exit": {
+          "Early": "-02:30",
+          "Late": "-"
+        },
+        "NetHours": "-02:30",
+        "Shift": "General"
+      },
+      {
+        "id": 7,
+        "Employee": "ZY197",
+        "Entry": {
+          "Early": "+00:00",
+          "Late": "-"
+        },
+        "Exit": {
+          "Early": "-01:30",
+          "Late": "-"
+        },
+        "NetHours": "-01:30",
+          "Shift": "General"
+      }
     ]
-}
+  }
+  

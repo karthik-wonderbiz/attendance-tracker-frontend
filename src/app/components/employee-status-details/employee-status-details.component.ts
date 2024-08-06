@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-employee-status-details',
   templateUrl: './employee-status-details.component.html',
-  styleUrl: './employee-status-details.component.css'
+  styleUrls: ['./employee-status-details.component.css']
 })
-export class EmployeeStatusDetailsComponent {
+export class EmployeeStatusDetailsComponent implements OnInit {
+  @Input() employeeData: any[] = [];
+  
+  columns = [
+    { key: 'name', label: 'Employee Name' },
+    { key: 'status', label: 'Status' },
+    { key: 'inTime', label: 'In time' }
+  ];
 
-  inTime = "09:00"
+  constructor(private dataService: DataService) {}
 
+  ngOnInit() {}
 }

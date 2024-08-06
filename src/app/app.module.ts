@@ -21,7 +21,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EmployeeTablesComponent } from './components/employee-tables/employee-tables.component';
 import { DataService } from './services/data.service';
 import { EmployeeStatusComponent } from './components/employee-status/employee-status.component';
 import { EmployeeStatusDetailsComponent } from './components/employee-status-details/employee-status-details.component';
@@ -36,7 +35,6 @@ import { EmployeeStatusDetailsComponent } from './components/employee-status-det
     CalendarComponent,
     LoginComponent,
     DashboardComponent,
-    EmployeeTablesComponent,
     EmployeeStatusComponent,
     EmployeeStatusDetailsComponent
   ],
