@@ -24,6 +24,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DataService } from './services/data.service';
 import { EmployeeStatusComponent } from './components/employee-status/employee-status.component';
 import { EmployeeStatusDetailsComponent } from './components/employee-status-details/employee-status-details.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SectionComponent } from './components/section/section.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { EmployeeStatusDetailsComponent } from './components/employee-status-det
     LoginComponent,
     DashboardComponent,
     EmployeeStatusComponent,
-    EmployeeStatusDetailsComponent
+    EmployeeStatusDetailsComponent,
+    NavbarComponent,
+    SidebarComponent,
+    FooterComponent,
+    SectionComponent
   ],
   imports: [
     BrowserModule,
