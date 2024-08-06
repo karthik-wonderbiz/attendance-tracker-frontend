@@ -48,4 +48,23 @@ export class DataService {
       })
     );
   }
+
+  getEmployeeData(): Observable<any[]> {
+    return this.http.get<EmployeeData>(this.dataUrl).pipe(
+      map(data => {
+        return data.EmployeeBasicInfo.map(employee => {
+          const attendance = data.EmployeeAttendance.find(a => a.Employee === employee.Employee);
+          return {
+            name: employee.Name,
+            status: attendance ? 'Present' : 'Absent',
+            inTime: attendance ? attendance.FirstIn : '-'
+          };
+        });
+      }),
+      catchError(error => {
+        console.error('Error fetching employee data', error);
+        return of([]);
+      })
+    );
+  }
 }
