@@ -28,6 +28,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SectionComponent } from './components/section/section.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SectionComponent } from './components/section/section.component';
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    SectionComponent
+    SectionComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
