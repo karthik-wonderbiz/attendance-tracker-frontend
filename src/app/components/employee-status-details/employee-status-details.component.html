@@ -5,7 +5,7 @@
       class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
       Export to CSV
     </button>
-  </div>  
+  </div>
   <hr class="my-2 border-gray-300 dark:border-gray-600">
-  <app-table [data]="employeeData" [columns]="columns"></app-table>
+  <app-table [data]="employeeData" [columns]="columns" (rowClicked)="onRowClicked($event)"></app-table>
 </div>

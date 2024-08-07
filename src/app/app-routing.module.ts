@@ -7,6 +7,7 @@ import { CalendarComponent } from './components/generic-components/calendar/cale
 import { TableComponent } from './components/generic-components/table/table.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "table", component: TableComponent },
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},
+  { path: 'employee-detail/:id', component: EmployeeDetailComponent },
 ];
 
 @NgModule({

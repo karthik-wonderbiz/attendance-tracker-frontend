@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of data" class="border-b border-gray-200 hover:bg-gray-50">
+    <tr *ngFor="let row of data" class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer" (click)="onRowClick(row)">
       <td *ngFor="let column of columns" class="py-2 px-4">
         <ng-container *ngIf="isObject(row[column.key]); else simpleContent">
           <div *ngIf="column.subColumns" class="grid grid-cols-2 gap-1 text-sm text-gray-700">
@@ -33,4 +33,3 @@
     </tr>
   </tbody>
 </table>
-

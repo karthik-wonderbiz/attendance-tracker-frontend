@@ -12,4 +12,5 @@ export interface EmployeeTimingDetails {
     };
     NetHours: string;
     Shift: string;
+    TodaysInOut: string[];
 }

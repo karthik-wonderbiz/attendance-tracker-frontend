@@ -30,6 +30,7 @@ export class EmployeeStatusComponent implements OnInit {
           const attendance = attendanceData.find(att => att.Employee === employee.Employee);
           const inTime = attendance ? attendance.FirstIn : null;
           return {
+            id: employee.Employee,
             name: employee.Name,
             status: inTime ? 'Present' : 'Absent',
             inTime: inTime,

@@ -4,4 +4,5 @@ export interface EmployeeBasicInfo {
     Employee: string;
     Name: string;
     Image: string;
+    TodaysInOut: string[];
 }

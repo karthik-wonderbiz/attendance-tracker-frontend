@@ -30,6 +30,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SectionComponent } from './components/section/section.component';
 import { TopEmployeesComponent } from './components/top-employees/top-employees.component';
 import { TableWithTabsComponent } from './components/generic-components/table-with-tabs/table-with-tabs.component';
+import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { TableWithTabsComponent } from './components/generic-components/table-wi
     FooterComponent,
     SectionComponent,
     TopEmployeesComponent,
-    TableWithTabsComponent
+    TableWithTabsComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,

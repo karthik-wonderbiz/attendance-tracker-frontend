@@ -5,6 +5,7 @@ import { EmployeeBasicInfo } from '../model/employee-basic-info.model';
 import { EmployeeAttendance } from '../model/employee-attendance.model';
 import { EmployeeTimingDetails } from '../model/employee-timing-details.model';
 
+// Ensure the interface includes TodaysInOut
 interface EmployeeData {
   EmployeeBasicInfo: EmployeeBasicInfo[];
   EmployeeAttendance: EmployeeAttendance[];
@@ -55,9 +56,12 @@ export class DataService {
         return data.EmployeeBasicInfo.map(employee => {
           const attendance = data.EmployeeAttendance.find(a => a.Employee === employee.Employee);
           return {
+            id: employee.Employee,
             name: employee.Name,
             status: attendance ? 'Present' : 'Absent',
-            inTime: attendance ? attendance.FirstIn : '-'
+            inTime: attendance ? attendance.FirstIn : '-',
+            image: employee.Image,
+            todaysInOut: attendance?.TodaysInOut || [] // Add TodaysInOut here
           };
         });
       }),
@@ -74,6 +78,7 @@ export class DataService {
         const attendanceData = data.EmployeeAttendance.map(attendance => {
           const employee = data.EmployeeBasicInfo.find(emp => emp.Employee === attendance.Employee);
           return {
+            id: employee?.Employee || 'Unknown',
             name: employee?.Name || 'Unknown',
             image: employee?.Image || '',
             dailyHours: this.convertToMinutes(attendance.DailyHours),
@@ -82,6 +87,7 @@ export class DataService {
             quarterlyHours: this.convertToMinutes(attendance.QuarterlyHours),
             yearlyHours: this.convertToMinutes(attendance.YearlyHours),
             allTimeHours: this.convertToMinutes(attendance.AllTimeHours),
+            todaysInOut: data.EmployeeAttendance.find(t => t.Employee === attendance.Employee)?.TodaysInOut || [] // Add TodaysInOut here
           };
         });
   
@@ -105,14 +111,18 @@ export class DataService {
         const attendanceData = data.EmployeeAttendance.map(attendance => {
           const employee = data.EmployeeBasicInfo.find(emp => emp.Employee === attendance.Employee);
           return {
+            id: employee?.Employee || 'Unknown',
             name: employee?.Name || 'Unknown',
             image: employee?.Image || '',
+            status: attendance ? 'Present' : 'Absent',
+            inTime: attendance ? attendance.FirstIn : '-',
             dailyHours: this.convertToMinutes(attendance.DailyHours),
             weeklyHours: this.convertToMinutes(attendance.WeeklyHours),
             monthlyHours: this.convertToMinutes(attendance.MonthlyHours),
             quarterlyHours: this.convertToMinutes(attendance.QuarterlyHours),
             yearlyHours: this.convertToMinutes(attendance.YearlyHours),
             allTimeHours: this.convertToMinutes(attendance.AllTimeHours),
+            todaysInOut: data.EmployeeAttendance.find(t => t.Employee === attendance.Employee)?.TodaysInOut || [] // Add TodaysInOut here
           };
         });
 
@@ -125,6 +135,26 @@ export class DataService {
     );
   }
   
+  getEmployeeById(id: string): Observable<any> {
+    return this.http.get<EmployeeData>(this.dataUrl).pipe(
+      map(data => {
+        const employee = data.EmployeeBasicInfo.find(e => e.Employee === id);
+        const attendance = data.EmployeeAttendance.find(a => a.Employee === id);
+        const timing = data.EmployeeTimingDetails.find(t => t.Employee === id);
+
+        return {
+          ...employee,
+          ...attendance,
+          ...timing
+        };
+      }),
+      catchError(error => {
+        console.error('Error fetching employee details', error);
+        return of(null);
+      })
+    );
+  }
+
   private convertToMinutes(hours: string): number {
     const [hrs, mins] = hours.split(':').map(Number);
     return (hrs || 0) * 60 + (mins || 0);

@@ -10,4 +10,5 @@ export interface EmployeeAttendance {
   QuarterlyHours: string;
   YearlyHours: string;
   AllTimeHours: string;
+  TodaysInOut: string[];
 }
