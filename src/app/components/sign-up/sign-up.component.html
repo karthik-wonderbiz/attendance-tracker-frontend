@@ -1,19 +1,18 @@
-<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto bg-fixed bg-center bg-cover" 
->
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto bg-fixed bg-center bg-cover">
     <a class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
         <img class="w-8 h-8 mr-2" src="https://www.pngmart.com/files/6/Time-Attendance-System-PNG-HD.png" alt="logo">
         ATS
     </a>
     <div
-    class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-             Create an account
-        </h1>
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-screen-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Create an account
+            </h1>
 
-<form #empForm="ngForm" (ngSubmit)="RegisterEmp(empForm)" class="space-y-4 md:space-y-6">
+            <form #empForm="ngForm" (ngSubmit)="RegisterEmp(empForm)" class="space-y-4 md:space-y-6">
 
-    <!-- <div class="fixed">
+                <!-- <div class="fixed">
 
         <div *ngIf="(this.validateForm()) && isSubmitted" id="toast-success"
             class="bg-green-100 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
@@ -47,105 +46,125 @@
 
     </div> -->
 
-    <div>
-        <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-        <input type="text" name="firstName" id="firstName" [(ngModel)]="employee.firstName" #name="ngModel" required
-            autocomplete="off"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="John">
-        <div class="h-8">
-            <div *ngIf="(!this.validateName() && (name.dirty || name.touched)) || (this.isInvalid && !this.validateName() )"
-                class="text-red-500 text-sm p-2">{{
-                errors.firstName }}
-            </div>
+                <div class=" sm:gap-4  sm:grid sm:grid-cols-2">
 
+                    <div>
+                        <label for="firstName"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                        <input type="text" name="firstName" id="firstName" [(ngModel)]="employee.firstName"
+                            #name="ngModel" required autocomplete="off"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="John">
+                        <div class="h-8">
+                            <div *ngIf="(!this.validateName() && (name.dirty || name.touched)) || (this.isInvalid && !this.validateName() )"
+                                class="text-red-500 text-sm p-2">{{
+                                errors.firstName }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                            Name</label>
+                        <input type="text" name="lastName" id="lastName" [(ngModel)]="employee.lastName" #name="ngModel"
+                            required autocomplete="off"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Doe">
+                        <div class="h-8">
+                            <!-- <div *ngIf="(!this.validateName() && (name.dirty || name.touched)) || (this.isInvalid && !this.validateName() )" class="text-red-500 text-sm p-2">{{
+                    errors.firstName }}
+                </div> -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class=" sm:gap-4  sm:grid sm:grid-cols-2">
+                    <div>
+                        <label for="employeeEmail"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <input type="text" name="employeeEmail" id="employeeEmail" [(ngModel)]="employee.employeeEmail"
+                            #email="ngModel" required autocomplete="off"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="name@company.com">
+                        <div class="h-8">
+                            <div *ngIf="(!this.validateEmail() && (email.dirty || email.touched)) || (this.isInvalid && !validateEmail())"
+                                class="text-red-500 text-sm p-2">{{
+                                errors.employeeEmail }}</div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="employeePhone"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                        <input type="text" name="employeePhone" id="employeePhone" [(ngModel)]="employee.employeePhone"
+                            #phone="ngModel" required autocomplete="off"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="+91">
+                        <div class="h-8">
+                            <div *ngIf="(!this.validatePhone() && (phone.dirty || phone.touched)) || (this.isInvalid && !validatePhone())"
+                                class="text-red-500 text-sm p-2">{{
+                                errors.employeePhone }}</div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class=" sm:gap-4  sm:grid sm:grid-cols-2">
+                    <div>
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                        <input type="password" name="password" id="password" [(ngModel)]="employee.password"
+                            #password="ngModel" required autocomplete="off" placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class="h-8">
+                            <div *ngIf="(!this.validatePassword() && (password.dirty || password.touched)) || (this.isInvalid && !validatePassword())"
+                                class="text-red-500 text-sm p-2">{{
+                                errors.password }}</div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="confirmPassword"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                            Password</label>
+                        <input type="password" name="confirmPassword" id="confirmPassword"
+                            [(ngModel)]="employee.confirmPassword" #confirmPassword="ngModel" required
+                            autocomplete="off" placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class="h-8">
+                            <div *ngIf="(!this.validateConfirmPassword() && (confirmPassword.dirty || confirmPassword.touched)) || (this.isInvalid && !validateConfirmPassword())"
+                                class="text-red-500 text-sm p-2">{{
+                                errors.confirmPassword }}</div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <button type="submit" (click)="onSubmit()"
+                    class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Submit
+                </button>
+
+                <p class="flex justify-evenly text-sm font-light text-gray-500 dark:text-gray-400">
+                    Already have an account?
+                    <a (click)="onBackToLogin()" routerLink="/login"
+                        class="font-medium text-blue-600 hover:underline dark:text-blue-500">
+                        Login here
+                    </a>
+                </p>
+
+            </form>
         </div>
-
     </div>
-
-    <div>
-        <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-        <input type="text" name="lastName" id="lastName" [(ngModel)]="employee.lastName" #name="ngModel" required
-            autocomplete="off"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Doe">
-        <div class="h-8">
-            <!-- <div *ngIf="(!this.validateName() && (name.dirty || name.touched)) || (this.isInvalid && !this.validateName() )" class="text-red-500 text-sm p-2">{{
-                errors.firstName }}
-            </div> -->
-
-        </div>
-
-    </div>
-
-    <div>
-        <label for="employeeEmail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-        <input type="text" name="employeeEmail" id="employeeEmail" [(ngModel)]="employee.employeeEmail" #email="ngModel"
-            required autocomplete="off"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="name@company.com">
-        <div class="h-8">
-            <div *ngIf="(!this.validateEmail() && (email.dirty || email.touched)) || (this.isInvalid && !validateEmail())"
-                class="text-red-500 text-sm p-2">{{
-                errors.employeeEmail }}</div>
-        </div>
-
-    </div>
-
-    <div>
-        <label for="employeePhone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-        <input type="text" name="employeePhone" id="employeePhone" [(ngModel)]="employee.employeePhone" #phone="ngModel"
-            required autocomplete="off"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="+91">
-        <div class="h-8">
-            <div *ngIf="(!this.validatePhone() && (phone.dirty || phone.touched)) || (this.isInvalid && !validatePhone())"
-                class="text-red-500 text-sm p-2">{{
-                errors.employeePhone }}</div>
-        </div>
-
-    </div>
-
-    <div>
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-        <input type="password" name="password" id="password" [(ngModel)]="employee.password" #password="ngModel"
-            required autocomplete="off" placeholder="••••••••"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <div class="h-8">
-            <div *ngIf="(!this.validatePassword() && (password.dirty || password.touched)) || (this.isInvalid && !validatePassword())"
-                class="text-red-500 text-sm p-2">{{
-                errors.password }}</div>
-        </div>
-
-    </div>
-
-    <div>
-        <label for="confirmPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" [(ngModel)]="employee.confirmPassword" #confirmPassword="ngModel"
-            required autocomplete="off" placeholder="••••••••"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <div class="h-8">
-            <div *ngIf="(!this.validateConfirmPassword() && (confirmPassword.dirty || confirmPassword.touched)) || (this.isInvalid && !validateConfirmPassword())"
-                class="text-red-500 text-sm p-2">{{
-                errors.confirmPassword }}</div>
-        </div>
-
-    </div>
-
-
-        <button type="submit" (click)="onSubmit()"
-        class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Submit
-        </button>
-
-        <p class="flex justify-evenly text-sm font-light text-gray-500 dark:text-gray-400">
-            Already have an account? 
-            <a (click)="onBackToLogin()" routerLink="/login" class="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                Login here
-            </a>
-        </p>
-
-</form>
-</div>
-</div>
 </div>
