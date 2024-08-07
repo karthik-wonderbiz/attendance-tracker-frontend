@@ -52,7 +52,7 @@ import { TableWithTabsComponent } from './components/generic-components/table-wi
     FooterComponent,
     SectionComponent,
 
-    SignUpComponent
+    SignUpComponent,
 
     TopEmployeesComponent,
     TableWithTabsComponent
