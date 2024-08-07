@@ -67,10 +67,8 @@
 
   <tbody>
 
-    <tr *ngFor="let row of data"
-      class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <tr *ngFor="let row of data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer" (click)="onRowClick(row)">
       <td *ngFor="let column of columns" class="px-6 py-4">
-
         <ng-container *ngIf="isObject(row[column.key]); else simpleContent">
           <div *ngIf="column.subColumns">
             <div *ngFor="let subColumn of column.subColumns">
@@ -112,3 +110,4 @@
 
   </tbody>
 </table>
+
