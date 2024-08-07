@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ngxCsv } from 'ngx-csv';
 
 @Component({
@@ -9,14 +9,19 @@ import { ngxCsv } from 'ngx-csv';
 })
 export class EmployeeStatusDetailsComponent implements OnInit {
   @Input() employeeData: any[] = [];
-  
+  @Output() rowClicked = new EventEmitter<any>();
+
   columns = [
     { key: 'name', label: 'Employee Name' },
     { key: 'status', label: 'Status' },
     { key: 'inTime', label: 'In time' }
   ];
 
-  ngOnInit() {}
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+
+  }
 
   exportToCSV() {
     const options = {
@@ -34,5 +39,13 @@ export class EmployeeStatusDetailsComponent implements OnInit {
     };
 
     new ngxCsv(this.employeeData, options.filename, options);
+  }
+
+  onRowClicked(employee: any) {
+    if (employee && employee.id) {
+      this.router.navigate(['/employee-detail', employee.id]);
+    } else {
+      console.error('Employee ID is missing or data is incorrect');
+    }
   }
 }

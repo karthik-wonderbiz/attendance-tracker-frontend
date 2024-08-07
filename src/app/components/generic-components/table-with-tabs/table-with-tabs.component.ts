@@ -5,6 +5,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Outpu
   templateUrl: './table-with-tabs.component.html',
   styleUrls: ['./table-with-tabs.component.css']
 })
+
 export class TableWithTabsComponent implements OnInit, OnChanges {
   @Input() tabs: string[] = [];
   @Input() tabNames: string[] = [];
