@@ -1,3 +1,61 @@
+
+<!-- <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th *ngFor="let column of columns" scope="col" class="px-6 py-3">
+          {{ column.label }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let row of data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <td *ngFor="let column of columns" class="px-6 py-4">
+
+          <ng-container *ngIf="isObject(row[column.key]); else simpleContent">
+            <div *ngIf="column.subColumns">
+              <div *ngFor="let subColumn of column.subColumns">
+                {{ row[column.key][subColumn.key] }}
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #simpleContent>
+
+            <ng-container *ngIf="column.key === 'name'; else defaultContent">
+              <div class="flex items-center">
+                <img class="w-10 h-10 rounded-full" [src]="row.image" alt="Employee image">
+                <div class="ps-3">
+                  <div class=" font-semibold text-base text-black text-nowrap">{{ row[column.key] }}</div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-template #defaultContent>
+
+              <ng-container *ngIf="column.key === 'status'">
+                <div class="flex items-center">
+                  <div class="h-2.5 w-2.5 rounded-full" [ngClass]="row[column.key] === 'Present' ? 'bg-green-500 me-2' : 'bg-red-500 me-2'"></div> {{ row[column.key] }}
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="column.key === 'inTime'">
+                <p class="font-medium text-blue-600 dark:text-blue-500 text-nowrap">{{ row[column.key] }}</p>
+              </ng-container>
+              
+            </ng-template>
+
+          </ng-template>
+
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table> -->
+  
 <table class="min-w-full bg-white border border-gray-200 rounded-md shadow-sm">
   <thead class="bg-gray-100 border-b border-gray-200">
     <tr>

@@ -8,6 +8,7 @@ import { TableComponent } from './components/generic-components/table/table.comp
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},
   { path: 'employee-detail/:id', component: EmployeeDetailComponent },
+  {path: 'sign-up', component: SignUpComponent},
 ];
 
 @NgModule({

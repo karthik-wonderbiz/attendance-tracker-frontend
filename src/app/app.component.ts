@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
-
+  isLogged = false;
+  isNewUser = false;
   isOn = true;
 
   toggle() {
@@ -16,10 +16,13 @@ export class AppComponent {
 
   toggleOff() {
     if (!this.isOn) {
-      this.isOn = !this.isOn
+      this.isOn = !this.isOn;
     }
   }
 
+  onLoginStatusChange(loggedIn: boolean) {
+    this.isLogged = loggedIn;
+  }
 
   constructor() { }
 }

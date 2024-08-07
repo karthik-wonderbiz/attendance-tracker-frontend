@@ -4,8 +4,8 @@ interface EmployeeModel{
     lastName : string,
     employeeEmail: string ,
     employeePhone: string ,
-    gender: string ,
-    qualification: string ,
-    hobbies : any,
+    password: string,
+    confirmPassword: string,
+
 }
 export default EmployeeModel
