@@ -28,7 +28,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SectionComponent } from './components/section/section.component';
+
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+
+import { TopEmployeesComponent } from './components/top-employees/top-employees.component';
+import { TableWithTabsComponent } from './components/generic-components/table-with-tabs/table-with-tabs.component';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +51,12 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     SidebarComponent,
     FooterComponent,
     SectionComponent,
+
     SignUpComponent
+
+    TopEmployeesComponent,
+    TableWithTabsComponent
+
   ],
   imports: [
     BrowserModule,

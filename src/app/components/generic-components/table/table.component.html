@@ -1,4 +1,5 @@
-<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+<!-- <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>
@@ -53,5 +54,42 @@
 
     </tbody>
 
-  </table>
+  </table> -->
   
+<table class="min-w-full bg-white border border-gray-200 rounded-md shadow-sm">
+  <thead class="bg-gray-100 border-b border-gray-200">
+    <tr>
+      <th *ngFor="let column of columns" class="py-2 px-4 text-left text-gray-600 font-medium">
+        {{ column.label }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data" class="border-b border-gray-200 hover:bg-gray-50">
+      <td *ngFor="let column of columns" class="py-2 px-4">
+        <ng-container *ngIf="isObject(row[column.key]); else simpleContent">
+          <div *ngIf="column.subColumns" class="grid grid-cols-2 gap-1 text-sm text-gray-700">
+            <div *ngFor="let subColumn of column.subColumns">
+              {{ row[column.key][subColumn.key] }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #simpleContent>
+          <ng-container *ngIf="column.key === 'name'; else defaultContent">
+            <div class="flex items-center">
+              <img class="w-10 h-10 rounded-full" [src]="row.image" alt="Employee image">
+              <div class="ps-3">
+                <div class="text-base font-semibold">{{ row[column.key] }}</div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #defaultContent>
+            {{ row[column.key] }}
+          </ng-template>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+>>>>>>> fe06006351b3b8fbd86c7405e2703acef1ba448a
