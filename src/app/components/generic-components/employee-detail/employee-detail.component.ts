@@ -10,11 +10,13 @@ import { DataService } from '../../../services/data.service';
 export class EmployeeDetailComponent implements OnInit {
   employee: any = {};
   inOutData: any[] = [];
+  selectedDate: Date = new Date();
+  formattedDate: string = '';
 
   columns = [
-    { key: 'id', label: 'Sr No.' },
     { key: 'inTime', label: 'In Time' },
-    { key: 'outTime', label: 'Out Time' }
+    { key: 'outTime', label: 'Out Time' },
+    { key: 'timeOut', label: 'Total Out Hours' },
   ];
   tabNames = ['Today', 'Yesterday', 'Day Before Yesterday'];
   tabs = ['today', 'yesterday', 'dayBeforeYesterday'];
@@ -41,6 +43,9 @@ export class EmployeeDetailComponent implements OnInit {
         this.updateInOutData();
       });
     }
+
+    // Format selectedDate
+    this.formattedDate = this.selectedDate.toLocaleDateString(); // Formats date as MM/DD/YYYY or according to locale
   }
 
   updateInOutData(): void {
