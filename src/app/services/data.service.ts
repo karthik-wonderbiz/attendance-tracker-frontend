@@ -67,4 +67,66 @@ export class DataService {
       })
     );
   }
+
+  getTop5Employees(): Observable<{ max: any[], min: any[] }> {
+    return this.http.get<EmployeeData>(this.dataUrl).pipe(
+      map(data => {
+        const attendanceData = data.EmployeeAttendance.map(attendance => {
+          const employee = data.EmployeeBasicInfo.find(emp => emp.Employee === attendance.Employee);
+          return {
+            name: employee?.Name || 'Unknown',
+            image: employee?.Image || '',
+            dailyHours: this.convertToMinutes(attendance.DailyHours),
+            weeklyHours: this.convertToMinutes(attendance.WeeklyHours),
+            monthlyHours: this.convertToMinutes(attendance.MonthlyHours),
+            quarterlyHours: this.convertToMinutes(attendance.QuarterlyHours),
+            yearlyHours: this.convertToMinutes(attendance.YearlyHours),
+            allTimeHours: this.convertToMinutes(attendance.AllTimeHours),
+          };
+        });
+  
+        const sortedData = attendanceData.sort((a, b) => b.dailyHours - a.dailyHours);
+  
+        const max = sortedData.slice(0, 5);
+        const min = sortedData.slice(-5).reverse();
+  
+        return { max, min };
+      }),
+      catchError(error => {
+        console.error('Error fetching top employees', error);
+        return of({ max: [], min: [] });
+      })
+    );
+  }
+
+  getAllEmployees(): Observable<any[]> {
+    return this.http.get<EmployeeData>(this.dataUrl).pipe(
+      map(data => {
+        const attendanceData = data.EmployeeAttendance.map(attendance => {
+          const employee = data.EmployeeBasicInfo.find(emp => emp.Employee === attendance.Employee);
+          return {
+            name: employee?.Name || 'Unknown',
+            image: employee?.Image || '',
+            dailyHours: this.convertToMinutes(attendance.DailyHours),
+            weeklyHours: this.convertToMinutes(attendance.WeeklyHours),
+            monthlyHours: this.convertToMinutes(attendance.MonthlyHours),
+            quarterlyHours: this.convertToMinutes(attendance.QuarterlyHours),
+            yearlyHours: this.convertToMinutes(attendance.YearlyHours),
+            allTimeHours: this.convertToMinutes(attendance.AllTimeHours),
+          };
+        });
+
+        return attendanceData;
+      }),
+      catchError(error => {
+        console.error('Error fetching all employees', error);
+        return of([]);
+      })
+    );
+  }
+  
+  private convertToMinutes(hours: string): number {
+    const [hrs, mins] = hours.split(':').map(Number);
+    return (hrs || 0) * 60 + (mins || 0);
+  }  
 }

@@ -28,6 +28,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SectionComponent } from './components/section/section.component';
+import { TopEmployeesComponent } from './components/top-employees/top-employees.component';
+import { TableWithTabsComponent } from './components/generic-components/table-with-tabs/table-with-tabs.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { SectionComponent } from './components/section/section.component';
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    SectionComponent
+    SectionComponent,
+    TopEmployeesComponent,
+    TableWithTabsComponent
   ],
   imports: [
     BrowserModule,

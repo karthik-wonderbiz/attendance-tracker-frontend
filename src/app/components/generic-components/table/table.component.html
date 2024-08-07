@@ -1,43 +1,36 @@
 <table class="min-w-full bg-white border border-gray-200 rounded-md shadow-sm">
-    <thead class="bg-gray-100 border-b border-gray-200">
-      <tr>
-        <th *ngFor="let column of columns" class="py-2 px-4 text-left text-gray-600 font-medium">
-          {{ column.label }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of data" class="border-b border-gray-200 hover:bg-gray-50">
-        <td *ngFor="let column of columns" class="py-2 px-4">
-          <ng-container *ngIf="isObject(row[column.key]); else simpleContent">
-            <div *ngIf="column.subColumns" class="grid grid-cols-2 gap-1 text-sm text-gray-700">
-              <div *ngFor="let subColumn of column.subColumns">
-                {{ row[column.key][subColumn.key] }}
+  <thead class="bg-gray-100 border-b border-gray-200">
+    <tr>
+      <th *ngFor="let column of columns" class="py-2 px-4 text-left text-gray-600 font-medium">
+        {{ column.label }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data" class="border-b border-gray-200 hover:bg-gray-50">
+      <td *ngFor="let column of columns" class="py-2 px-4">
+        <ng-container *ngIf="isObject(row[column.key]); else simpleContent">
+          <div *ngIf="column.subColumns" class="grid grid-cols-2 gap-1 text-sm text-gray-700">
+            <div *ngFor="let subColumn of column.subColumns">
+              {{ row[column.key][subColumn.key] }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #simpleContent>
+          <ng-container *ngIf="column.key === 'name'; else defaultContent">
+            <div class="flex items-center">
+              <img class="w-10 h-10 rounded-full" [src]="row.image" alt="Employee image">
+              <div class="ps-3">
+                <div class="text-base font-semibold">{{ row[column.key] }}</div>
               </div>
             </div>
           </ng-container>
-          <ng-template #simpleContent>
-            <ng-container *ngIf="column.key === 'name'; else defaultContent">
-              <div class="flex items-center">
-                <img class="w-10 h-10 rounded-full" [src]="row.image" alt="Employee image">
-                <div class="ps-3">
-                  <div class="text-base font-semibold">{{ row[column.key] }}</div>
-                </div>
-              </div>
-            </ng-container>
-            <ng-template #defaultContent>
-              <ng-container *ngIf="column.key === 'status'">
-                <div class="flex items-center">
-                  <div class="h-2.5 w-2.5 rounded-full" [ngClass]="row[column.key] === 'Present' ? 'bg-green-500' : 'bg-red-500'"></div> {{ row[column.key] }}
-                </div>
-              </ng-container>
-              <ng-container *ngIf="column.key === 'inTime'">
-                <p class="font-medium text-blue-600 dark:text-blue-500">{{ row[column.key] }}</p>
-              </ng-container>
-            </ng-template>
+          <ng-template #defaultContent>
+            {{ row[column.key] }}
           </ng-template>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

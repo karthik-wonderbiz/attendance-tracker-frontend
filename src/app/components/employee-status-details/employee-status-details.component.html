@@ -1,5 +1,11 @@
 <div class="p-2 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full">
-  <h1 class="text-xs font-bold text-black-700 uppercase">Employee Status Details</h1>
+  <div class="flex items-center justify-between">
+    <h1 class="text-xs font-bold text-black-700 uppercase">Employee Status Details</h1>
+    <button (click)="exportToCSV()"
+      class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+      Export to CSV
+    </button>
+  </div>  
   <hr class="my-2 border-gray-300 dark:border-gray-600">
   <app-table [data]="employeeData" [columns]="columns"></app-table>
 </div>
