@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isLogged = false;
+  isLogged = true;
   isNewUser = false;
   isOn = true;
 
@@ -22,6 +22,10 @@ export class AppComponent {
 
   onLoginStatusChange(loggedIn: boolean) {
     this.isLogged = loggedIn;
+  }
+
+  onSignUpStatusChange(isNewUser: boolean) {
+    this.isNewUser = isNewUser;
   }
 
   constructor() { }

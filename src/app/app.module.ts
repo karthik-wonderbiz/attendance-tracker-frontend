@@ -35,6 +35,7 @@ import { TopEmployeesComponent } from './components/top-employees/top-employees.
 import { TableWithTabsComponent } from './components/generic-components/table-with-tabs/table-with-tabs.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,7 @@ import { TableWithTabsComponent } from './components/generic-components/table-wi
     SignUpComponent,
 
     TopEmployeesComponent,
-    TableWithTabsComponent
+    TableWithTabsComponent,
 
   ],
   imports: [

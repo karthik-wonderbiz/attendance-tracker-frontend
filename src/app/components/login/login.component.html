@@ -1,6 +1,7 @@
-<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-fixed bg-center bg-cover"
+>
     <a class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-        <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
+        <img class="w-8 h-8 mr-2" src="https://www.pngmart.com/files/6/Time-Attendance-System-PNG-HD.png" alt="logo">
         ATS
     </a>
     <div
@@ -44,7 +45,7 @@
                     in</button>
                 <p class="flex justify-evenly text-sm font-light text-gray-500 dark:text-gray-400">
                     Don’t have an account yet? 
-                    <a class="font-medium text-blue-600 hover:underline dark:text-blue-500">
+                    <a (click)="onSignUp()" routerLink="/sign-up" class="font-medium text-blue-600 hover:underline dark:text-blue-500">
                         Sign up
                     </a>
                 </p>

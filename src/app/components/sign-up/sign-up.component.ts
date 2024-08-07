@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import EmployeeModel from '../../model/employee-sign-up.model';
 import { EmployeeService } from '../../services/employee.service';
@@ -97,5 +97,12 @@ export class SignUpComponent implements OnInit {
 
   validateConfirmPassword(): boolean {
     return this.employee.password === this.employee.confirmPassword;
+  }
+
+  @Input() isNewUser?: boolean;
+  @Output() signUpStatusChange = new EventEmitter<boolean>();
+
+  onBackToLogin() {
+    this.signUpStatusChange.emit(false);
   }
 }

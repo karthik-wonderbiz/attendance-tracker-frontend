@@ -17,6 +17,7 @@ export class LoginComponent {
   loginError = '';
 
   @Output() loginStatusChange = new EventEmitter<boolean>();
+  @Output() signUpStatusChange = new EventEmitter<boolean>();
 
   constructor(private employeeService: EmployeeService, private router: Router) {}
 
@@ -34,5 +35,9 @@ export class LoginComponent {
         this.loginStatusChange.emit(false);
       }
     });
+  }
+
+  onSignUp(){
+    this.signUpStatusChange.emit(true);
   }
 }
