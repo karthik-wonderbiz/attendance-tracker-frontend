@@ -1,4 +1,4 @@
-<div *ngIf="(!isLogged && !isNewUser)">
+<!-- <div *ngIf="(!isLogged && !isNewUser)">
     <app-login (loginStatusChange)="onLoginStatusChange($event)"
         (signUpStatusChange)="onSignUpStatusChange($event)"></app-login>
 </div>
@@ -12,4 +12,6 @@
     <app-sidebar [isOn]="isOn" (toggle)="toggle()" (toggleOff)="toggleOff()"></app-sidebar>
     <app-section [isOn]="isOn" (toggle)="toggle()" (toggleOff)="toggleOff()"></app-section>
     <app-footer [isOn]="isOn" (toggle)="toggle()" (toggleOff)="toggleOff()"></app-footer>
-</div>
+</div> -->
+
+<router-outlet></router-outlet>

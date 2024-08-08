@@ -9,18 +9,28 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: "pie", component: PieComponent },
   { path: "bar", component: BarComponent },
   { path: "line", component: LineComponent },
   { path: "calendar", component: CalendarComponent },
   { path: "table", component: TableComponent },
-  {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'employee-detail/:id', component: EmployeeDetailComponent },
-  {path: 'sign-up', component: SignUpComponent},
+  { path: 'sign-up', component: SignUpComponent },
+  {
+    path: 'admin',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('./modules/admin/admin.module').then((m) => m.AdminModule),
+  },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
