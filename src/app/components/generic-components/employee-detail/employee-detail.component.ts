@@ -15,8 +15,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   columns = [
     { key: 'inTime', label: 'In Time' },
-    { key: 'outTime', label: 'Out Time' },
-    { key: 'timeOut', label: 'Total Out Hours' },
+    { key: 'outTime', label: 'Out Time' }
   ];
   tabNames = ['Today', 'Yesterday', 'Day Before Yesterday'];
   tabs = ['today', 'yesterday', 'dayBeforeYesterday'];
@@ -43,9 +42,8 @@ export class EmployeeDetailComponent implements OnInit {
         this.updateInOutData();
       });
     }
-
-    // Format selectedDate
-    this.formattedDate = this.selectedDate.toLocaleDateString(); // Formats date as MM/DD/YYYY or according to locale
+    
+    this.formattedDate = this.selectedDate.toLocaleDateString();
   }
 
   updateInOutData(): void {

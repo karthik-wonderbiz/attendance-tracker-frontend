@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { AttendanceLogService } from '../../services/attendanceLog/attendance-log.service';
+import { AttendanceLogModel } from '../../model/AttendanceLog.model';
 
 @Component({
   selector: 'app-employee-status',
@@ -16,7 +18,7 @@ export class EmployeeStatusComponent implements OnInit {
   filteredEmployees: any[] = [];
   filter: 'all' | 'present' | 'absent' | 'wfh' = 'all';
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private attendanceLogService: AttendanceLogService) {}
 
   ngOnInit(): void {
     this.dataService.getEmployeeBasicInfo().subscribe((basicInfoData) => {
@@ -39,6 +41,25 @@ export class EmployeeStatusComponent implements OnInit {
         });
         this.filterEmployees();
       });
+    });
+    this.getSummaryData();
+  }
+
+  attendanceLogModel: AttendanceLogModel ={
+    userId: 0,
+    inOutTime: '',
+    checkType: '',
+    total: 0,
+    present: 0,
+    wfh: 0,
+    absent: 0,
+    startDate: '',
+    endDate: ''
+  }
+
+  getSummaryData(){
+    this.attendanceLogService.getSummaryAttendance(this.attendanceLogModel.startDate, this.attendanceLogModel.endDate).subscribe((data)=>{
+      this.attendanceLogModel = data;
     });
   }
 
@@ -68,3 +89,7 @@ export class EmployeeStatusComponent implements OnInit {
     }
   }
 }
+function getSummaryData() {
+  throw new Error('Function not implemented.');
+}
+
