@@ -93,4 +93,3 @@ export class EmployeeStatusComponent implements OnInit {
 function getSummaryData() {
   throw new Error('Function not implemented.');
 }
-

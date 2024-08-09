@@ -63,7 +63,7 @@ import { CreatedComponent } from './components/created/created.component';
     TableWithTabsComponent,
     EmployeeDetailComponent,
     NotFoundComponent,
-    EmployeeAttendanceRecordsComponent,
+
     EmployeeLogRecordsComponent,
     CreatedComponent
   ],

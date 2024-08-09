@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../../../../../services/data.service';
+import { AttendanceLogService } from '../../../../../services/attendanceLog/attendance-log.service';
+import { ActivityRecordModel } from '../../../../../model/ActivityRecord.model';
 
 @Component({
   selector: 'app-employee-detail',
   templateUrl: './employee-detail.component.html',
-  styleUrls: ['./employee-detail.component.css']
+  styleUrls: ['./employee-detail.component.css'],
 })
 export class EmployeeDetailComponent implements OnInit {
   employee: any = {};
@@ -13,10 +14,19 @@ export class EmployeeDetailComponent implements OnInit {
   selectedDate: Date = new Date();
   formattedDate: string = '';
 
-  columns = [
+  // Define separate column arrays
+  columnsTable1 = [
     { key: 'inTime', label: 'In Time' },
-    { key: 'outTime', label: 'Out Time' }
+    { key: 'outTime', label: 'Out Time' },
+    { key: 'inHours', label: 'Total In Time' },
   ];
+
+  columnsTable2 = [
+    { key: 'inTime', label: 'In Time' },
+    { key: 'outTime', label: 'Out Time' },
+    { key: 'inHours', label: 'Total Out Time' },
+  ];
+
   tabNames = ['Today', 'Yesterday', 'Day Before Yesterday'];
   tabs = ['today', 'yesterday', 'dayBeforeYesterday'];
 
@@ -24,32 +34,30 @@ export class EmployeeDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService
+    private attendanceLogService: AttendanceLogService
   ) {}
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
-    this.updateInOutData();
   }
+
+  activityRecords: ActivityRecordModel[] = [];
+
+  startDate: string = '2024-08-09';
+  endDate: string = '2024-08-09';
 
   ngOnInit() {
     const employeeId = this.route.snapshot.paramMap.get('id');
     console.log(employeeId);
     if (employeeId) {
-      this.dataService.getEmployeeById(employeeId).subscribe(data => {
-        this.employee = data;
-        console.log('Selected Employee:', this.employee);
-        this.updateInOutData();
-      });
+      this.attendanceLogService
+        .getActivityRecordsByUserId(employeeId, this.startDate, this.endDate)
+        .subscribe((data) => {
+          this.activityRecords = data;
+          console.log('Activity Records:', this.activityRecords);
+        });
+  
+      this.formattedDate = this.selectedDate.toLocaleDateString();
     }
-    
-    this.formattedDate = this.selectedDate.toLocaleDateString();
-  }
-
-  updateInOutData(): void {
-    if (this.employee && this.employee.TodaysInOut) {
-      this.inOutData = this.employee.TodaysInOut || [];
-      console.log(this.inOutData);
-    }
-  }
+  }  
 }

@@ -28,6 +28,7 @@ import { DataService } from '../../services/data.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { EmployeeAttendanceRecordsComponent } from '../../components/employee-attendance-records/employee-attendance-records.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     TopEmployeesComponent,
     TableWithTabsComponent,
     EmployeeDetailComponent,
+    EmployeeAttendanceRecordsComponent
   ],
   imports: [
     CommonModule,
