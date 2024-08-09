@@ -11,6 +11,7 @@ import { EmployeeDetailComponent } from './components/generic-components/employe
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { authGuard } from './guards/auth.guard';
+import { CreatedComponent } from './components/created/created.component';
 
 const routes: Routes = [
   
@@ -22,8 +23,9 @@ const routes: Routes = [
   { path: "table", component: TableComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'employee-detail/:id', component: EmployeeDetailComponent },
+  // { path: 'employee-detail/:id', component: EmployeeDetailComponent },
   { path: 'sign-up', component: SignUpComponent },
+  { path: 'created', component: CreatedComponent },
   {
     path: 'admin',
     canActivate: [authGuard],

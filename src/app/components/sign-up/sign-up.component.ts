@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import EmployeeModel from '../../model/employee-sign-up.model';
 import { EmployeeService } from '../../services/employee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,17 +20,18 @@ export class SignUpComponent implements OnInit {
   };
 
   errors = {
-    firstName: 'Name is required and must be at least 3 chars!',
+    firstName: 'First name must be at least 3 chars!',
+    lastName: 'Last name must be at least 1 char!',
     employeeEmail: 'Enter a valid email!',
-    employeePhone: 'Phone is required and must be 10 digits!',
-    password: 'Create a valid password!',
+    employeePhone: 'Phone must be 10 digits!',
+    password: 'Password must be min 8 alphanumeric!',
     confirmPassword: 'Password does not match!',
   };
 
   isInvalid = false;
   isSubmitted = false;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -47,6 +49,9 @@ export class SignUpComponent implements OnInit {
         if (success) {
           console.log("Data saved successfully");
         }
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       });
     } else {
       this.isInvalid = true;
@@ -68,6 +73,7 @@ export class SignUpComponent implements OnInit {
   validateForm(): boolean {
     return (
       this.validateName() &&
+      this.validateLastName() &&
       this.validateEmail() &&
       this.validatePhone() &&
       this.validatePassword() &&
@@ -78,6 +84,11 @@ export class SignUpComponent implements OnInit {
   validateName(): boolean {
     const namePattern = /^[a-zA-Z]{2,}[ ]{0,1}[a-zA-Z]{1,}$/;
     return namePattern.test(this.employee.firstName);
+  }
+
+  validateLastName(): boolean {
+    const namePattern = /^[a-zA-Z]{0,}[ ]{0,1}[a-zA-Z]{1,}$/;
+    return namePattern.test(this.employee.lastName);
   }
 
   validateEmail(): boolean {
@@ -91,7 +102,7 @@ export class SignUpComponent implements OnInit {
   }
 
   validatePassword(): boolean {
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,}$/;
     return regex.test(this.employee.password);
   }
 
@@ -105,4 +116,6 @@ export class SignUpComponent implements OnInit {
   onBackToLogin() {
     this.signUpStatusChange.emit(false);
   }
+
+
 }

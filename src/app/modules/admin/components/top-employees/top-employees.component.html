@@ -1,0 +1,64 @@
+<div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-4 lg:gap-2">
+    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Max Hours</h1>
+            <button (click)="toggleMaxHoursView()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                {{ showMaxTop5 ? 'View All' : 'Top 5' }}
+            </button>
+            <button (click)="exportMaxHoursToCSV()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                Export to CSV
+            </button>
+        </div>
+        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
+            class="w-full"></app-table-with-tabs>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Min Hours</h1>
+            <button (click)="toggleMinHoursView()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                {{ showMinTop5 ? 'Top 5' : 'View All' }}
+            </button>
+            <button (click)="exportMinHoursToCSV()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                Export to CSV
+            </button>
+        </div>
+        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"
+            class="w-full"></app-table-with-tabs>
+    </div>
+</div>
+<div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-4 lg:gap-2">
+    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Early Entry</h1>
+            <button (click)="toggleMaxHoursView()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                {{ showMaxTop5 ? 'View All' : 'Top 5' }}
+            </button>
+            <button (click)="exportMaxHoursToCSV()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                Export to CSV
+            </button>
+        </div>
+        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
+            class="w-full"></app-table-with-tabs>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Late Entry</h1>
+            <button (click)="toggleMinHoursView()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                {{ showMinTop5 ? 'Top 5' : 'View All' }}
+            </button>
+            <button (click)="exportMinHoursToCSV()"
+                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
+                Export to CSV
+            </button>
+        </div>
+        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"
+            class="w-full"></app-table-with-tabs>
+    </div>
+</div>

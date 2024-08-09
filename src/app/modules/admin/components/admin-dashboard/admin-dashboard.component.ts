@@ -6,5 +6,28 @@ import { Component } from '@angular/core';
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent {
+  isLogged = true;
+  isNewUser = false;
+  isOn = true;
+
+  toggle() {
+    this.isOn = !this.isOn;
+  }
+
+  toggleOff() {
+    if (!this.isOn) {
+      this.isOn = !this.isOn;
+    }
+  }
+
+  onLoginStatusChange(loggedIn: boolean) {
+    this.isLogged = loggedIn;
+  }
+
+  onSignUpStatusChange(isNewUser: boolean) {
+    this.isNewUser = isNewUser;
+  }
+
+  constructor() { }
 
 }

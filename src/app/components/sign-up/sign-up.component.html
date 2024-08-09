@@ -1,3 +1,36 @@
+<div class="fixed flex items-center justify-center p-4 right-0" style="width: -webkit-fill-available;">
+
+    <div *ngIf="(this.validateForm()) && isSubmitted"
+        class="flex items-center p-2 px-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span class="font-medium">Account Created Successfully! Redirecting to login...</span>
+        </div>
+    </div>
+
+    <div *ngIf="(!this.validateForm()) && isSubmitted"
+        class="flex items-center px-4 p-2 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span class="font-medium">All marked fields are required!</span>
+        </div>
+    </div>
+
+</div>
+
+
 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto bg-fixed bg-center bg-cover">
     <a class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
         <img class="w-8 h-8 mr-2" src="https://www.pngmart.com/files/6/Time-Attendance-System-PNG-HD.png" alt="logo">
@@ -12,52 +45,19 @@
 
             <form #empForm="ngForm" (ngSubmit)="RegisterEmp(empForm)" class="space-y-4 md:space-y-6">
 
-                <!-- <div class="fixed">
-
-        <div *ngIf="(this.validateForm()) && isSubmitted" id="toast-success"
-            class="bg-green-100 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
-            role="alert">
-            <div
-                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                </svg>
-                <span class="sr-only">Check icon</span>
-            </div>
-            <div class="ms-3 text-sm font-normal">Submitted Successfully.</div>
-        </div>
-
-        <div *ngIf="(!this.validateForm()) && isSubmitted" id="toast-danger"
-            class="bg-red-100 flex  w-full max-w-xs p-4 mb-4 text-gray-500  rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
-            role="alert">
-            <div
-                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
-                </svg>
-                <span class="sr-only">Error icon</span>
-            </div>
-            <div class="ms-3 mt-1  text-sm font-normal">Fill all the required fields!</div>
-        </div>
-
-    </div> -->
-
-                <div class=" sm:gap-4  sm:grid sm:grid-cols-2">
+                <div class=" sm:gap-8  sm:grid sm:grid-cols-2">
 
                     <div>
                         <label for="firstName"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
                         <input type="text" name="firstName" id="firstName" [(ngModel)]="employee.firstName"
                             #name="ngModel" required autocomplete="off"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="John">
-                        <div class="h-8">
+                            [ngClass]="{ ' border-red-500': (this.isInvalid && !this.validateName() ), ' border-gray-300': ! (this.isInvalid && !this.validateName() ) }"
+                            class="bg-gray-50 input input-bordered  text-gray-900 rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="First">
+                        <div class="sm:h-4 h-8">
                             <div *ngIf="(!this.validateName() && (name.dirty || name.touched)) || (this.isInvalid && !this.validateName() )"
-                                class="text-red-500 text-sm p-2">{{
+                                class="text-red-500 text-xs p-2">{{
                                 errors.firstName }}
                             </div>
 
@@ -68,14 +68,16 @@
                     <div>
                         <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
                             Name</label>
-                        <input type="text" name="lastName" id="lastName" [(ngModel)]="employee.lastName" #name="ngModel"
-                            required autocomplete="off"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Doe">
-                        <div class="h-8">
-                            <!-- <div *ngIf="(!this.validateName() && (name.dirty || name.touched)) || (this.isInvalid && !this.validateName() )" class="text-red-500 text-sm p-2">{{
-                    errors.firstName }}
-                </div> -->
+                        <input type="text" name="lastName" id="lastName" [(ngModel)]="employee.lastName"
+                            #lastName="ngModel" required autocomplete="off"
+                            [ngClass]="{ ' border-red-500': (this.isInvalid && !this.validateLastName() ), ' border-gray-300': ! (this.isInvalid && !this.validateLastName() ) }"
+                            class="bg-gray-50 input input-bordered  text-gray-900 rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Last">
+                        <div class="sm:h-4 h-8">
+                            <div *ngIf="(!this.validateLastName() && (lastName.dirty || lastName.touched)) || (this.isInvalid && !this.validateLastName() )"
+                                class="text-red-500 text-xs p-2">{{
+                                errors.lastName }}
+                            </div>
 
                         </div>
 
@@ -84,49 +86,61 @@
                 </div>
 
 
-                <div class=" sm:gap-4  sm:grid sm:grid-cols-2">
+                <div class=" sm:gap-8  sm:grid sm:grid-cols-2">
                     <div>
                         <label for="employeeEmail"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="text" name="employeeEmail" id="employeeEmail" [(ngModel)]="employee.employeeEmail"
                             #email="ngModel" required autocomplete="off"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            [ngClass]="{ ' border-red-500': (this.isInvalid && !this.validateEmail() ), 'border-gray-300': ! (this.isInvalid && !this.validateEmail() ) }"
+                            class="bg-gray-50 input input-bordered text-gray-900 rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="name@company.com">
-                        <div class="h-8">
+                        <div class="sm:h-4 h-8">
                             <div *ngIf="(!this.validateEmail() && (email.dirty || email.touched)) || (this.isInvalid && !validateEmail())"
-                                class="text-red-500 text-sm p-2">{{
+                                class="text-red-500 text-xs p-2">{{
                                 errors.employeeEmail }}</div>
                         </div>
 
                     </div>
 
-                    <div>
+                    <div class="relative">
                         <label for="employeePhone"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Phone
+                        </label>
+                    
+                        <div class="absolute inset-y-0 left-0 sm:top-3 max-sm:bottom-1 flex items-center pl-3 pointer-events-none">
+                            <span class="text-gray-500 dark:text-gray-400">+91</span>
+                        </div>
+                    
                         <input type="text" name="employeePhone" id="employeePhone" [(ngModel)]="employee.employeePhone"
                             #phone="ngModel" required autocomplete="off"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="+91">
-                        <div class="h-8">
+                            [ngClass]="{ 'border-red-500': (this.isInvalid && !this.validatePhone()), 'border-gray-300': !(this.isInvalid && !this.validatePhone()) }"
+                            class="bg-gray-50 input input-bordered text-gray-900 rounded-lg block w-full pl-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Enter phone number">
+                    
+                        <div class="sm:h-4 h-8">
                             <div *ngIf="(!this.validatePhone() && (phone.dirty || phone.touched)) || (this.isInvalid && !validatePhone())"
-                                class="text-red-500 text-sm p-2">{{
-                                errors.employeePhone }}</div>
+                                class="text-red-500 text-xs p-2">
+                                {{ errors.employeePhone }}
+                            </div>
                         </div>
-
                     </div>
+                    
                 </div>
 
 
-                <div class=" sm:gap-4  sm:grid sm:grid-cols-2">
+                <div class=" sm:gap-8  sm:grid sm:grid-cols-2">
                     <div>
                         <label for="password"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                         <input type="password" name="password" id="password" [(ngModel)]="employee.password"
                             #password="ngModel" required autocomplete="off" placeholder="••••••••"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <div class="h-8">
+                            [ngClass]="{ ' border-red-500': (this.isInvalid && !this.validatePassword() ), 'border-gray-300': ! (this.isInvalid && !this.validatePassword() ) }"
+                            class="bg-gray-50 input input-bordered text-gray-900 rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class="sm:h-4 h-8">
                             <div *ngIf="(!this.validatePassword() && (password.dirty || password.touched)) || (this.isInvalid && !validatePassword())"
-                                class="text-red-500 text-sm p-2">{{
+                                class="text-red-500 text-xs p-2">{{
                                 errors.password }}</div>
                         </div>
 
@@ -139,10 +153,11 @@
                         <input type="password" name="confirmPassword" id="confirmPassword"
                             [(ngModel)]="employee.confirmPassword" #confirmPassword="ngModel" required
                             autocomplete="off" placeholder="••••••••"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <div class="h-8">
+                            [ngClass]="{ ' border-red-500': (this.isInvalid && !this.validateConfirmPassword() ), 'border-gray-300': ! (this.isInvalid && !this.validateConfirmPassword() ) }"
+                            class="bg-gray-50 input input-bordered text-gray-900 rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class="sm:h-4 h-8">
                             <div *ngIf="(!this.validateConfirmPassword() && (confirmPassword.dirty || confirmPassword.touched)) || (this.isInvalid && !validateConfirmPassword())"
-                                class="text-red-500 text-sm p-2">{{
+                                class="text-red-500 text-xs p-2">{{
                                 errors.confirmPassword }}</div>
                         </div>
 
@@ -150,19 +165,23 @@
                 </div>
 
 
+                <div class="flex justify-between max-sm:flex-col-reverse ">
 
-                <button type="submit" (click)="onSubmit()"
-                    class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Submit
-                </button>
+                    <p
+                        class="flex justify-around text-sm max-sm:text-xs max-sm:p-2 font-light text-gray-500 dark:text-gray-400 items-center space-x-2">
+                        <span>Already have an account?</span>
+                        <a (click)="onBackToLogin()" routerLink="../login"
+                            class="font-medium text-blue-600 hover:underline dark:text-blue-500">
+                            Login here
+                        </a>
+                    </p>
 
-                <p class="flex justify-evenly text-sm font-light text-gray-500 dark:text-gray-400">
-                    Already have an account?
-                    <a (click)="onBackToLogin()" routerLink="/login"
-                        class="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                        Login here
-                    </a>
-                </p>
+                    <button type="submit" (click)="onSubmit()"
+                        class="btn text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Create
+                    </button>
+
+                </div>
 
             </form>
         </div>

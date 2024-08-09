@@ -35,6 +35,7 @@ import { TopEmployeesComponent } from './components/top-employees/top-employees.
 import { TableWithTabsComponent } from './components/generic-components/table-with-tabs/table-with-tabs.component';
 import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CreatedComponent } from './components/created/created.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     TopEmployeesComponent,
     TableWithTabsComponent,
     EmployeeDetailComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CreatedComponent
   ],
   imports: [
     BrowserModule,

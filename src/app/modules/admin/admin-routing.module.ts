@@ -4,14 +4,20 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
+import { TableComponent } from './components/generic-components/table/table.component';
 
 const routes: Routes = [
-  {path:'', component: AdminDashboardComponent,
-    children:[
-      {path: 'home', component: HomeComponent},
-      {path: 'contact', component: ContactComponent},
-      {path: 'about', component: AboutComponent},
-      {path: '', redirectTo: '/admin/home', pathMatch: 'full'}
+  {
+    path: '', component: AdminDashboardComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'about', component: AboutComponent },
+      { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'employee-detail/:id', component: EmployeeDetailComponent,},
     ]
   }
 ];

@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
-export class FooterComponent {
 
+export class NavbarComponent {
   @Input() isOn?: boolean;
   @Output() toggle = new EventEmitter<void>();
   @Output() toggleOff = new EventEmitter<void>();
@@ -18,4 +18,5 @@ export class FooterComponent {
   onToggleOff(): void {
     this.toggleOff.emit();
   }
+
 }
