@@ -105,6 +105,7 @@ export class DataService {
     );
   }
 
+
   getAllEmployees(): Observable<any[]> {
     return this.http.get<EmployeeData>(this.dataUrl).pipe(
       map(data => {
@@ -116,7 +117,8 @@ export class DataService {
             image: employee?.Image || '',
             status: attendance ? 'Present' : 'Absent',
             inTime: attendance ? attendance.FirstIn : '-',
-            dailyHours: this.convertToMinutes(attendance.DailyHours),
+            outTime: attendance? attendance.LastOut : '-',
+            dailyHours: attendance.DailyHours,
             weeklyHours: this.convertToMinutes(attendance.WeeklyHours),
             monthlyHours: this.convertToMinutes(attendance.MonthlyHours),
             quarterlyHours: this.convertToMinutes(attendance.QuarterlyHours),

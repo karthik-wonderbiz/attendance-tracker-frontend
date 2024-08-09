@@ -1,63 +1,63 @@
 <div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-4 lg:gap-2">
-    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+    <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
         <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Max Hours</h1>
-            <button (click)="toggleMaxHoursView()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                {{ showMaxTop5 ? 'View All' : 'Top 5' }}
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
+            <button
+                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
+                View All
             </button>
-            <button (click)="exportMaxHoursToCSV()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                Export to CSV
+            <button (click)="exportMaxHoursToCSV()">
+                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
             </button>
         </div>
+        <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
-    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+    <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
         <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Min Hours</h1>
-            <button (click)="toggleMinHoursView()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                {{ showMinTop5 ? 'Top 5' : 'View All' }}
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Min Hours</h1>
+            <button
+                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
+                View All
             </button>
-            <button (click)="exportMinHoursToCSV()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                Export to CSV
+            <button (click)="exportMinHoursToCSV()">
+                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
             </button>
         </div>
+        <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
 </div>
 <div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-4 lg:gap-2">
-    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+    <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
         <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Early Entry</h1>
-            <button (click)="toggleMaxHoursView()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                {{ showMaxTop5 ? 'View All' : 'Top 5' }}
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Early Entry</h1>
+            <button
+                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
+                View All
             </button>
-            <button (click)="exportMaxHoursToCSV()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                Export to CSV
+            <button (click)="exportMaxHoursToCSV()">
+                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
             </button>
         </div>
+        <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
-    <div class="bg-white shadow rounded-lg p-4 border border-gray-200 w-full">
+    <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
         <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xs font-bold text-black-700 uppercase">Top Employees with Late Entry</h1>
-            <button (click)="toggleMinHoursView()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                {{ showMinTop5 ? 'Top 5' : 'View All' }}
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Late Entry</h1>
+            <button
+                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
+                View All
             </button>
-            <button (click)="exportMinHoursToCSV()"
-                class="bg-gray-100 text-black px-4 py-2 rounded border-1 hover:bg-gray-200 transition duration-500">
-                Export to CSV
+            <button (click)="exportMinHoursToCSV()">
+                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
             </button>
         </div>
+        <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>

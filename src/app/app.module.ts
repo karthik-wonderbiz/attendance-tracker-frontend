@@ -35,6 +35,8 @@ import { TopEmployeesComponent } from './components/top-employees/top-employees.
 import { TableWithTabsComponent } from './components/generic-components/table-with-tabs/table-with-tabs.component';
 import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { EmployeeAttendanceRecordsComponent } from './components/employee-attendance-records/employee-attendance-records.component';
+import { EmployeeLogRecordsComponent } from './components/employee-log-records/employee-log-records.component';
 import { CreatedComponent } from './components/created/created.component';
 
 
@@ -61,6 +63,8 @@ import { CreatedComponent } from './components/created/created.component';
     TableWithTabsComponent,
     EmployeeDetailComponent,
     NotFoundComponent,
+    EmployeeAttendanceRecordsComponent,
+    EmployeeLogRecordsComponent,
     CreatedComponent
   ],
   imports: [
