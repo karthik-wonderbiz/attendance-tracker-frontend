@@ -31,7 +31,7 @@ export class EmployeeAttendanceRecordsComponent implements OnInit {
   }
   onRowClicked(employee: any) {
     if (employee && employee.id) {
-      this.router.navigate(['/employee-detail', employee.id]);
+      this.router.navigate(['/admin/employee-detail', employee.id]);
     } else {
       console.error('Employee ID is missing or data is incorrect');
     }
