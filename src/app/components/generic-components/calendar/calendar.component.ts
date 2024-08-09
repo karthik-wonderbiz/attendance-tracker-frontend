@@ -45,7 +45,7 @@ export class CalendarComponent implements OnChanges {
       case 'present':
         return 'green';
       default:
-        return 'blue'; // Default color
+        return 'gray'; // Default color
     }
   }
 }

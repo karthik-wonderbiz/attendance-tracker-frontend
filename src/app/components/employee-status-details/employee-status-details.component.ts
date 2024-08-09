@@ -7,6 +7,7 @@ import { ngxCsv } from 'ngx-csv';
   templateUrl: './employee-status-details.component.html',
   styleUrls: ['./employee-status-details.component.css']
 })
+
 export class EmployeeStatusDetailsComponent implements OnInit {
   @Input() employeeData: any[] = [];
   @Output() rowClicked = new EventEmitter<any>();
