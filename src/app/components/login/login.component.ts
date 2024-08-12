@@ -16,6 +16,7 @@ export class LoginComponent {
   };
 
   loginError = '';
+  isInvalid = false;
 
   @Output() loginStatusChange = new EventEmitter<boolean>();
   @Output() signUpStatusChange = new EventEmitter<boolean>();
@@ -28,12 +29,14 @@ export class LoginComponent {
       if (employee && employee.employeeEmail === formData.employeeEmail && employee.password === formData.password) {
         console.log('Login successful');
         this.loginError = '';
+        this.isInvalid = false;
         this.loginStatusChange.emit(true);
         // this.router.navigate(['/dashboard']);
         this.router.navigate(['admin']);
       } else {
         console.log('Login failed');
         this.loginError = 'Invalid email or password';
+        this.isInvalid = true;
         this.loginStatusChange.emit(false);
       }
     });
@@ -42,4 +45,5 @@ export class LoginComponent {
   onSignUp(){
     this.signUpStatusChange.emit(true);
   }
+
 }
