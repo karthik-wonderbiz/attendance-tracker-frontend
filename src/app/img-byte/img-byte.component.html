@@ -1,0 +1,15 @@
+<div>
+  <h2>{{ name }}</h2>
+  
+  <!-- Input for selecting an image file -->
+  <input type="file" (change)="onFileSelected($event)" />
+
+  <!-- Input for entering image ID -->
+  <input type="number" [(ngModel)]="imageId" placeholder="Enter image ID" />
+  
+  <!-- Button to fetch the image based on the entered ID -->
+  <button (click)="getImageFromDatabase(imageId)">Fetch Image</button>
+
+  <!-- Display the image if it exists -->
+  <img *ngIf="thumbnail" [src]="thumbnail" alt="Uploaded image preview" />
+</div>

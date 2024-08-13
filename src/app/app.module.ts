@@ -19,6 +19,7 @@ import { DataService } from './services/data.service';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ImgByteComponent } from './img-byte/img-byte.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     LoginComponent,
     SignUpComponent,
     NotFoundComponent,
+    ImgByteComponent
   ],
   imports: [
     BrowserModule,
