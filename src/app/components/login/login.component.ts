@@ -35,7 +35,7 @@ export class LoginComponent {
         this.router.navigate(['admin']);
       } else {
         console.log('Login failed');
-        this.loginError = 'Invalid email or password';
+        this.loginError = 'Invalid email or password!';
         this.isInvalid = true;
         this.loginStatusChange.emit(false);
       }
