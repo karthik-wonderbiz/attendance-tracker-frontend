@@ -16,7 +16,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeAttendanceRecordsComponent } from './components/employee-attendance-records/employee-attendance-records.component';
 import { EmployeeStatusDetailsComponent } from './components/employee-status-details/employee-status-details.component';
 import { EmployeeStatusComponent } from './components/employee-status/employee-status.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { BarComponent } from './components/generic-components/bar/bar.component';
 import { CalendarComponent } from './components/generic-components/calendar/calendar.component';
 import { EmployeeDetailComponent } from './components/generic-components/employee-detail/employee-detail.component';
@@ -26,9 +26,9 @@ import { TableWithTabsComponent } from './components/generic-components/table-wi
 import { TableComponent } from './components/generic-components/table/table.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SectionComponent } from './components/section/section.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { SectionComponent } from '../../shared/components/section/section.component';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 import { TopEmployeesComponent } from './components/top-employees/top-employees.component';
 import { EmployeeLogRecordsComponent } from './components/employee-log-records/employee-log-records.component';
 

@@ -16,7 +16,8 @@
                         email</label>
                     <input type="text" name="employeeEmail" id="employeeEmail" [(ngModel)]="loginData.employeeEmail"
                         #email="ngModel" required autocomplete="off"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                        [ngClass]="{ ' border-red-500': (this.isInvalid), ' border-gray-300': ! (this.isInvalid ) }"
+                        class="bg-gray-50 input input-bordered text-gray-900 rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
                         placeholder="name@company.com">
                 </div>
                 <div>
@@ -24,7 +25,8 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                     <input type="password" name="password" id="password" placeholder="••••••••"
                         [(ngModel)]="loginData.password" #password="ngModel" required autocomplete="off"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500">
+                        [ngClass]="{ ' border-red-500': (this.isInvalid), ' border-gray-300': ! (this.isInvalid ) }"
+                        class="bg-gray-50 input input-bordered text-gray-900 rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500">
                 </div>
                 <!-- <div class="flex items-center justify-between">
                         <div class="flex items-start">
