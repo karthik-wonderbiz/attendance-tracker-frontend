@@ -5,7 +5,7 @@ interface EmployeeModel{
     employeeEmail: string ,
     employeePhone: string ,
     password: string,
-    confirmPassword: string,
-
+    // confirmPassword: string,
+    profilePic: string; // Base64-encoded string
 }
 export default EmployeeModel
