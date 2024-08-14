@@ -11,7 +11,7 @@ import { AttendanceLogModel } from '../../../../model/AttendanceLog.model';
 })
 export class EmployeeStatusComponent implements OnInit {
   totalEmployees: number = 0;
-  workingEmployees: number = 0;
+  presentEmployees: number = 0;
   workFromHomeEmployees: number = 0;
   absentEmployees: number = 0;
 
@@ -22,27 +22,40 @@ export class EmployeeStatusComponent implements OnInit {
   constructor(private dataService: DataService, private attendanceLogService: AttendanceLogService) {}
 
   ngOnInit(): void {
-    this.dataService.getEmployeeBasicInfo().subscribe((basicInfoData) => {
-      this.totalEmployees = basicInfoData.length;
-      this.dataService.getEmployeeAttendance().subscribe((attendanceData) => {
-        this.workingEmployees = attendanceData.length;
-        this.absentEmployees = this.totalEmployees - this.workingEmployees;
-        this.workFromHomeEmployees = attendanceData.filter(employee => this.isWorkingFromHome(employee)).length;
+    this.attendanceLogService.getTodayAttendanceLogStatus().subscribe((data)=>{
+      this.totalEmployees = data.length;
+      this.attendanceLogService.getTodayAttendanceLogStatus().subscribe((data)=>{
+        this.presentEmployees = data.filter(log => log.status === 'Present').length;
+        this.absentEmployees = data.filter(log => log.status === 'Absent').length;
+        this.workFromHomeEmployees = data.filter(log => log.status === 'Work From Home').length;
 
-        this.allEmployees = basicInfoData.map(employee => {
-          const attendance = attendanceData.find(att => att.Employee === employee.Employee);
-          const inTime = attendance ? attendance.FirstIn : null;
+        this.allEmployees = data.map(employee =>{
+          const log = data;
           return {
-            id: employee.Employee,
-            name: employee.Name,
-            status: inTime ? 'Present' : 'Absent',
-            inTime: inTime,
-            image: employee.Image
+            userId: employee.userId,
+            inOutTime: employee.inOutTime,
+            checkType: employee.checkType,
+            total: employee.total,
+            present: employee.present,
+            wfh: employee.wfh,
+            absent: employee.absent,
+            startDate: employee.startDate,
+            endDate: employee.endDate,
+            attendanceLogTime: employee.attendanceLogTime,
+            firstName: employee.firstName,
+            lastName: employee.lastName,
+            totalHours: employee.totalHours,
+            profilePic: employee.profilePic,
+            fullName: employee.fullName,
+            lastCheckInTime: employee.lastCheckInTime,
+            lastCheckOutTime: employee.lastCheckOutTime,
+            status: employee.status === 'Present'? 'Present' : 'Absent',
+            inTime: employee.status === 'Present'? employee.inTime : null
           };
-        });
+        })
         this.filterEmployees();
-      });
-    });
+      })
+    })
     this.getSummaryData();
   }
 
@@ -55,17 +68,23 @@ export class EmployeeStatusComponent implements OnInit {
     wfh: 0,
     absent: 0,
     startDate: '',
-    endDate: ''
+    endDate: '',
+    attendanceLogTime: '',
+    firstName: '',
+    lastName: '',
+    totalHours: '',
+    profilePic: '',
+    fullName: '',
+    lastCheckInTime: '',
+    lastCheckOutTime: '',
+    status: '',
+    inTime: ''
   }
 
   getSummaryData(){
     this.attendanceLogService.getSummaryAttendance(this.attendanceLogModel.startDate, this.attendanceLogModel.endDate).subscribe((data)=>{
       this.attendanceLogModel = data;
     });
-  }
-
-  private isWorkingFromHome(employee: any): boolean {
-    return employee.Employee.startsWith('ZY');
   }
 
   setFilter(filter: 'all' | 'present' | 'absent' | 'wfh'): void {
@@ -82,14 +101,11 @@ export class EmployeeStatusComponent implements OnInit {
         this.filteredEmployees = this.allEmployees.filter(employee => employee.status === 'Absent');
         break;
       case 'wfh':
-        this.filteredEmployees = this.allEmployees.filter(employee => this.isWorkingFromHome(employee));
+        this.filteredEmployees = this.allEmployees.filter(employee => employee.status === 'Wfh');
         break;
       default:
         this.filteredEmployees = [...this.allEmployees];
         break;
     }
   }
-}
-function getSummaryData() {
-  throw new Error('Function not implemented.');
 }

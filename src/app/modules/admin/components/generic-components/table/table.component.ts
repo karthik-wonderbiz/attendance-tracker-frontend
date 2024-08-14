@@ -5,6 +5,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
+
 export class TableComponent {
   @Input() data: any[] = [];
   @Input() columns: { key: string, label: string, subColumns?: { key: string, label: string }[] }[] = [];
@@ -18,6 +19,8 @@ export class TableComponent {
     this.rowClicked.emit(row);
   }
 }
+
+
 
 // import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 

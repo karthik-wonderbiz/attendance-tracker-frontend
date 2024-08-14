@@ -30,6 +30,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SectionComponent } from './components/section/section.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopEmployeesComponent } from './components/top-employees/top-employees.component';
+import { EmployeeLogRecordsComponent } from './components/employee-log-records/employee-log-records.component';
 
 
 @NgModule({
@@ -55,8 +56,8 @@ import { TopEmployeesComponent } from './components/top-employees/top-employees.
     TopEmployeesComponent,
     TableWithTabsComponent,
     EmployeeDetailComponent,
-    EmployeeAttendanceRecordsComponent
-
+    EmployeeAttendanceRecordsComponent,
+    EmployeeLogRecordsComponent
   ],
   imports: [
     CommonModule,
