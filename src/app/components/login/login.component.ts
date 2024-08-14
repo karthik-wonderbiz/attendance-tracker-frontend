@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   loginData = {
-    employeeEmail: '',
+    email: '',
     password: ''
   };
 
@@ -26,7 +26,7 @@ export class LoginComponent {
   onLogin(loginForm: NgForm): void {
     const loginData = loginForm.value;
     this.employeeService.getEmployeeData().subscribe(employee => {
-      if (employee && employee.employeeEmail === loginData.employeeEmail && employee.password === loginData.password) {
+      if (employee && employee.email === loginData.email && employee.password === loginData.password) {
         console.log('Login successful');
         this.loginError = '';
         this.isInvalid = false;

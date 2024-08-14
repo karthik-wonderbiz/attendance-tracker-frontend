@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import ConfirmPassword from '../../model/confirm-password.model';
+import { SignUpService } from '../../shared/services/sign-up/sign-up.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,8 +17,8 @@ export class SignUpComponent implements OnInit {
   employee: EmployeeModel = {
     firstName: '',
     lastName: '',
-    employeeEmail: '',
-    employeePhone: '',
+    email: '',
+    contactNo: '',
     password: '',
     profilePic: '',
   };
@@ -28,8 +29,8 @@ export class SignUpComponent implements OnInit {
   errors = {
     firstName: 'First name must be at least 3 chars!',
     lastName: 'Last name must be at least 1 char!',
-    employeeEmail: 'Enter a valid email!',
-    employeePhone: 'Phone must be 10 digits!',
+    email: 'Enter a valid email!',
+    contactNo: 'Phone must be 10 digits!',
     password: 'Pass must be min 8 alphanumerics!',
     confirmPassword: 'Password does not match!',
     profilePic: 'Profile Photo is required!',
@@ -38,7 +39,7 @@ export class SignUpComponent implements OnInit {
   isInvalid = false;
   isSubmitted = false;
 
-  constructor(private employeeService: EmployeeService, private router: Router, private sanitizer: DomSanitizer, private http: HttpClient) {}
+  constructor(private employeeService: EmployeeService, private router: Router, private sanitizer: DomSanitizer, private http: HttpClient, private signupService : SignUpService) {}
 
   ngOnInit(): void {}
 
@@ -53,8 +54,8 @@ export class SignUpComponent implements OnInit {
     const loginData: EmployeeModel = {
       firstName: this.employee.firstName,
       lastName: this.employee.lastName,
-      employeeEmail: this.employee.employeeEmail,
-      employeePhone: this.employee.employeePhone,
+      email: this.employee.email,
+      contactNo: this.employee.contactNo,
       password: this.employee.password,
       profilePic: this.employee.profilePic,
     };
@@ -64,6 +65,7 @@ export class SignUpComponent implements OnInit {
       this.employeeService.saveEmployeeData(loginData).subscribe(success => {
         if (success) {
           console.log("Data saved successfully");
+          this.signupService.saveLoginData(loginData)
         }
         setTimeout(() => {
           this.router.navigate(['/login']);
@@ -79,8 +81,8 @@ export class SignUpComponent implements OnInit {
     this.employee = {
       firstName: '',
       lastName: '',
-      employeeEmail: '',
-      employeePhone: '',
+      email: '',
+      contactNo: '',
       password: '',
       profilePic: '',
     };
@@ -111,12 +113,12 @@ export class SignUpComponent implements OnInit {
 
   validateEmail(): boolean {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(this.employee.employeeEmail);
+    return emailPattern.test(this.employee.email);
   }
 
   validatePhone(): boolean {
     const phoneRegex = /^[0-9]{10}$/;
-    return phoneRegex.test(this.employee.employeePhone);
+    return phoneRegex.test(this.employee.contactNo);
   }
 
   validatePassword(): boolean {
@@ -164,13 +166,15 @@ export class SignUpComponent implements OnInit {
 
   saveImageToDatabase(base64String: string): void {
     const imageData = { imageData: base64String };
-
+    this.employee.profilePic = imageData.imageData
+    console.log(this.employee.profilePic)
     this.http.post('http://localhost:5029/api/images', imageData)
       .subscribe(response => {
         console.log('Image saved successfully', response);
       }, error => {
         console.error('Error saving image', error);
       });
+      this.getImageFromDatabase(this.imageId)
   }
 
   getImageFromDatabase(imageId: number | undefined): void {
