@@ -1,46 +1,53 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../../../../services/data.service';
+import { EncryptDescrypt } from '../../../../utils/genericFunction';
+import { EmployeeService } from '../../../../services/employee/employee.service';
+import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 
 @Component({
   selector: 'app-employee-attendance-records',
   templateUrl: './employee-attendance-records.component.html',
-  styleUrl: './employee-attendance-records.component.css'
+  styleUrls: ['./employee-attendance-records.component.css'] // Changed styleUrl to styleUrls
 })
 export class EmployeeAttendanceRecordsComponent implements OnInit {
   @Output() rowClicked = new EventEmitter<any>();
   employees: any[] = [];
+  allSuggestions: string[] = [];
+  filteredSuggestions: string[] = [];
+  searchTerms: string[] = [];
+  searchInput: string = '';
+
   columns = [
-    { key: 'name', label: 'Name' },
-    { key: 'inTime', label: 'In Time' },
-    { key: 'outTime', label: 'Out Time' },
-    { key: 'dailyHours', label: 'Total Hours' }
+    { key: 'fullName', label: 'Name' },
+    { key: 'lastCheckInTime', label: 'In Time' },
+    { key: 'lastCheckOutTime', label: 'Out Time' },
+    { key: 'totalHours', label: 'Total Hours' }
   ];
 
   startDate: Date = new Date();
-  formattedDate = this.startDate.toLocaleDateString();
+  endDate: Date = new Date();
+  formattedStartDate = this.startDate.toLocaleDateString();
+  formattedEndDate = this.startDate.toLocaleDateString();
 
-
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(private router: Router, private attendanceLogService: AttendanceLogService) {}
 
   ngOnInit(): void {
-      this.dataService.getAllEmployees().subscribe(data =>{
-        this.employees = data;
-        console.log(this.employees);
-      });
+    this.attendanceLogService.getAllEmployeesHours(this.formattedStartDate, this.formattedEndDate).subscribe(data => {
+      this.employees = data;
+      this.allSuggestions = this.employees.map(employee => employee.fullName);
+      console.log('Employee Data:', this.employees);
+    });
   }
+
   onRowClicked(employee: any) {
-    if (employee && employee.id) {
-      this.router.navigate(['/admin/employee-detail', employee.id]);
+    if (employee && employee.userId) {
+      console.log(employee.userId);
+      const encryptedId = EncryptDescrypt.encrypt(employee.userId.toString());
+      this.router.navigate(['/admin/employee-detail', encryptedId]);
     } else {
       console.error('Employee ID is missing or data is incorrect');
     }
   }
-
-  searchInput: string = '';
-  searchTerms: string[] = [];
-  allSuggestions: string[] = ['Suggestion1', 'Suggestion2', 'Suggestion3', 'Suggestion4']; // Replace with actual suggestions
-  filteredSuggestions: string[] = [];
 
   onInputChange() {
     this.filteredSuggestions = this.allSuggestions.filter(suggestion =>
@@ -71,13 +78,12 @@ export class EmployeeAttendanceRecordsComponent implements OnInit {
   handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter' && this.filteredSuggestions.length > 0) {
       this.selectSuggestion(this.filteredSuggestions[0]);
-      event.preventDefault(); // Prevent default Enter key behavior
+      event.preventDefault();
     }
   }
 
   performSearch() {
     const query = this.searchTerms.join(' ');
     console.log('Searching for:', query);
-    // Example: this.searchService.search(query).subscribe(results => this.results = results);
   }
 }

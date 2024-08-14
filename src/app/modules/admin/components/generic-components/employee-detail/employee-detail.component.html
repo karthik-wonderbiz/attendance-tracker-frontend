@@ -1,19 +1,18 @@
 <!-- Employee Card -->
 <div
-  class="p-6 max-w-full mx-auto bg-white rounded-lg shadow-md shadow-yellow-300 border border-gray-200 flex flex-col md:flex-row items-center">
+  class="p-6 max-w-full mx-auto bg-white rounded-lg shadow-md shadow-yellow-300 border border-gray-200 flex flex-col md:flex-row items-center animate-fade-down animate-once animate-duration-500">
   <div class="flex flex-col md:flex-row items-center">
     <!-- Logo Section -->
     <div class="w-24 h-24 flex-shrink-0 mb-4 md:mb-0 md:mr-6">
-      <img class="w-full h-full rounded-full border-2 border-yellow-400 object-cover shadow-md" [src]="employee.Image"
+      <img class="w-full h-full rounded-full border-2 border-yellow-400 object-cover shadow-md" [src]="employee.profilePic"
         alt="Employee Logo">
     </div>
     <!-- Employee Details Section -->
     <div class="flex-1">
-      <p class="text-2xl font-semibold text-blue-900 mb-2 inline-block">{{ employee.Name }} {{ employee.LastName ||
-        "Doe" }}</p>
-      <p class="text-gray-700"><strong class="mr-2 text-yellow-500">Email:</strong> <span>{{ employee.Email ||
+      <p class="text-2xl font-semibold text-blue-900 mb-2 inline-block">{{ employee.fullName }}</p>
+      <p class="text-gray-700"><strong class="mr-2 text-yellow-500">Email:</strong> <span>{{ employee.email ||
           'john.doe@gmail.com' }}</span></p>
-      <p class="text-gray-700"><strong class="mr-2 text-yellow-500">Phone:</strong> <span>{{ employee.Phone ||
+      <p class="text-gray-700"><strong class="mr-2 text-yellow-500">Phone:</strong> <span>{{ user.contactNo ||
           '8766545632' }}</span></p>
     </div>
     <!-- Vertical Line -->
@@ -33,7 +32,7 @@
 </div>
 
 <!-- Tabs and Table Card -->
-<div class="p-6 max-w-full mx-auto bg-white rounded-lg shadow-md shadow-yellow-300 border border-gray-200 mt-6">
+<div class="p-6 max-w-full mx-auto bg-white rounded-lg shadow-md shadow-yellow-300 border border-gray-200 mt-6 animate-fade-down animate-once animate-duration-500">
   <div class="flex items-center justify-between mb-4 border-b border-gray-300">
     <!-- Tabs -->
     <ul class="flex flex-wrap">
@@ -50,16 +49,16 @@
       <strong class="text-blue-700">Date:</strong> {{ formattedDate }}
     </div>
   </div>
-  <div class="flex flex-col md:flex-row gap-8 items-center w-full">
+  <div class="flex flex-col md:flex-row gap-8 w-full">
     <!-- First table showing 'In Time' and 'Out Time' columns -->
     <div class="w-full md:w-1/2 mb-4">
-      <app-table [data]="activityRecords" [columns]="columnsTable1" class="w-full">
+      <app-table [data]="activityInRecords" [columns]="columnsTable1" class="w-full">
       </app-table>
     </div>
 
     <!-- Second table showing 'Out Time' and 'Total In Time' columns -->
     <div class="w-full md:w-1/2 mb-4">
-      <app-table [data]="activityRecords" [columns]="columnsTable2" class="w-full">
+      <app-table [data]="activityOutRecords" [columns]="columnsTable2" class="w-full">
       </app-table>
     </div>
   </div>

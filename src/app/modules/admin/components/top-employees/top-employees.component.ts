@@ -17,7 +17,7 @@ export class TopEmployeesComponent implements OnInit {
   allMaxHoursData: any[] = [];
   allMinHoursData: any[] = [];
   columns = [
-    { key: 'name', label: 'Name' },
+    { key: 'fullName', label: 'Name' },
     { key: 'totalHours', label: 'Total Hours' }
   ];
   tabNames = ['All Time', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];

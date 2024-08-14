@@ -139,7 +139,9 @@
   </tbody>
 </table> -->
 
-<div class="flex overflow-auto" [ngClass]="columns.length >=3 ? 'max-h-[50vh]' : ''">
+
+
+<div class="flex overflow-auto animate-fade-down animate-once animate-duration-500" [ngClass]="columns.length <= 3 && columns.length !=2 ? 'max-h-[50vh]' : ''">
   <table
     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">
     <thead
@@ -165,10 +167,10 @@
             </div>
           </ng-container>
 
-          <ng-template #simpleContent>
-            <ng-container *ngIf="column.key === 'name'; else defaultContent">
+          <ng-template #simpleContent class="text-center">
+            <ng-container *ngIf="column.key === 'fullName'; else defaultContent">
               <div class="flex items-center">
-                <img class="w-12 h-12 rounded-full border-3 border-yellow-400 dark:border-yellow-700" [src]="row.image"
+                <img class="w-12 h-12 rounded-full border-3 border-yellow-400 dark:border-yellow-700" [src]="'data:image/jpeg;base64,' + row.profilePic"
                   alt="Employee image">
                 <div class="ps-3">
                   <div class="font-semibold text-base text-gray-800 dark:text-gray-200">{{ row[column.key] }}</div>
@@ -185,8 +187,16 @@
                     }}</span>
                 </div>
               </ng-container>
+              <ng-container *ngIf="column.key === 'checkType'">
+                <div class="flex items-center">
+                  <div class="h-2.5 w-2.5 rounded-full"
+                    [ngClass]="row[column.key] === 'IN' ? 'bg-green-500 me-2' : 'bg-red-500 me-2'"></div>
+                  <span [ngClass]="row[column.key] === 'IN' ? 'text-green-500' : 'text-red-500'">{{ row[column.key]
+                    }}</span>
+                </div>
+              </ng-container>
 
-              <ng-container *ngIf="column.key !== 'status'">
+              <ng-container *ngIf="column.key !== 'status' && column.key !=='checkType'">
                 <span class="text-gray-700 dark:text-gray-300">{{ row[column.key] }}</span>
               </ng-container>
             </ng-template>

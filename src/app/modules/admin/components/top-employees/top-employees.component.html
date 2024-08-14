@@ -1,61 +1,65 @@
-<div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-4 lg:gap-2">
+<div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-4 animate-fade-down animate-once animate-duration-500">
     <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
-        <div class="flex items-center justify-between mb-4">
+        <div class="flex justify-between mb-4">
             <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
-            <button
-                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
-                View All
-            </button>
-            <button (click)="exportMaxHoursToCSV()">
-                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
-            </button>
+            <div class="flex space-x-5"> 
+                <button title="View All" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-users-viewfinder fa-xl" style="color: #0040ff;"></i>
+                </button>
+                <button (click)="exportMaxHoursToCSV()" title="Export to CSV" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
+                </button>
+            </div>
         </div>
         <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
     <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Min Hours</h1>
-            <button
-                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
-                View All
-            </button>
-            <button (click)="exportMinHoursToCSV()">
-                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
-            </button>
+        <div class="flex justify-between mb-4">
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
+            <div class="flex space-x-5"> 
+                <button title="View All" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-users-viewfinder fa-xl" style="color: #0040ff;"></i>
+                </button>
+                <button (click)="exportMaxHoursToCSV()" title="Export to CSV" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
+                </button>
+            </div>
         </div>
         <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
 </div>
-<div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-4 lg:gap-2">
+<div class="p-2 py-4 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-4 animate-fade-down animate-once animate-duration-500">
     <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Early Entry</h1>
-            <button
-                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
-                View All
-            </button>
-            <button (click)="exportMaxHoursToCSV()">
-                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
-            </button>
+        <div class="flex justify-between mb-4">
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
+            <div class="flex space-x-5"> 
+                <button title="View All" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-users-viewfinder fa-xl" style="color: #0040ff;"></i>
+                </button>
+                <button (click)="exportMaxHoursToCSV()" title="Export to CSV" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
+                </button>
+            </div>
         </div>
         <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
     <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Late Entry</h1>
-            <button
-                class="bg-blue-100 text-blue-700 px-4 py-2 rounded border-1 hover:bg-blue-200 transition duration-500">
-                View All
-            </button>
-            <button (click)="exportMinHoursToCSV()">
-                <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
-            </button>
+        <div class="flex justify-between mb-4">
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
+            <div class="flex space-x-5"> 
+                <button title="View All" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-users-viewfinder fa-xl" style="color: #0040ff;"></i>
+                </button>
+                <button (click)="exportMaxHoursToCSV()" title="Export to CSV" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
+                </button>
+            </div>
         </div>
         <hr class="my-2 border-gray-300 dark:border-gray-700">
         <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"

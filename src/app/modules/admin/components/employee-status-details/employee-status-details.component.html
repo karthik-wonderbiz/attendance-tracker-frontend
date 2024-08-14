@@ -1,4 +1,4 @@
-<div class="p-2 bg-white border border-gray-200 rounded-lg shadow-md shadow-yellow-300 dark:bg-gray-800 dark:border-gray-700 w-full">
+<div class="p-2 bg-white border border-gray-200 rounded-lg shadow-md shadow-yellow-300 dark:bg-gray-800 dark:border-gray-700 w-full animate-fade-down animate-once animate-duration-500">
   <div class="flex items-center justify-between">
     <h1 class="text-xs font-bold text-black uppercase">Employee Status Details</h1>
     <input
@@ -6,10 +6,12 @@
         placeholder="Search..."
         class="px-2 py-1 border border-blue-800 rounded-md text-base dark:bg-yellow-700 dark:text-white focus:outline-none focus:ring focus:border-blue-300"
       />
-      <button (click)="exportToCSV()" class="mr-4">
+      <button (click)="exportToCSV()" title="Export to CSV" class="mr-4 transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
         <i class="fa-solid fa-file-csv fa-2xl" style="color: #38e97c;"></i>
       </button>
   </div>
   <hr class="my-2 border-gray-300 dark:border-gray-600">
   <app-table [data]="employeeData" [columns]="columns" (rowClicked)="onRowClicked($event)"></app-table>
 </div>
+
+

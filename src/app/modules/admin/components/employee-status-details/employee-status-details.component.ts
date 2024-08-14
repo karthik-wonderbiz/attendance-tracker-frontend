@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ngxCsv } from 'ngx-csv';
+import { EncryptDescrypt } from '../../../../utils/genericFunction';
+import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 
 @Component({
   selector: 'app-employee-status-details',
@@ -12,15 +14,22 @@ export class EmployeeStatusDetailsComponent implements OnInit {
   @Output() rowClicked = new EventEmitter<any>();
 
   columns = [
-    { key: 'name', label: 'Employee Name' },
+    { key: 'fullName', label: 'Employee Name' },
     { key: 'status', label: 'Status' },
     { key: 'inTime', label: 'In time' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private attendanceLogService: AttendanceLogService) {}
 
   ngOnInit() {
+    this.getAllEmployeesLogsStatus();
+  }
 
+  getAllEmployeesLogsStatus(){
+    this.attendanceLogService.getTodayAttendanceLogStatus().subscribe(data => {
+      this.employeeData = data;
+      console.log("Employee logs: ", this.employeeData);
+    });
   }
 
   exportToCSV() {
@@ -43,9 +52,13 @@ export class EmployeeStatusDetailsComponent implements OnInit {
 
   onRowClicked(employee: any) {
     if (employee && employee.id) {
-      this.router.navigate(['/admin/employee-detail', employee.id]);
+      // const empId = "1";
+
+      const encryptedId = EncryptDescrypt.encrypt(employee.id.toString());
+      this.router.navigate(['/admin/employee-detail', encryptedId]);
     } else {
       console.error('Employee ID is missing or data is incorrect');
     }
   }
 }
+
