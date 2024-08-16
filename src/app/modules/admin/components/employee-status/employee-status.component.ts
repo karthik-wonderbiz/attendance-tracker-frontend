@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../../services/data.service';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 import { AttendanceLogModel } from '../../../../model/AttendanceLog.model';
-
+import { SignalRService } from '../../../../services/signalR/signal-r.service';
 
 @Component({
   selector: 'app-employee-status',
@@ -19,47 +18,15 @@ export class EmployeeStatusComponent implements OnInit {
   filteredEmployees: any[] = [];
   filter: 'all' | 'present' | 'absent' | 'wfh' = 'all';
 
-  constructor(private dataService: DataService, private attendanceLogService: AttendanceLogService) {}
+  constructor(private attendanceLogService: AttendanceLogService, private signalRService: SignalRService) {}
 
   ngOnInit(): void {
-    this.attendanceLogService.getTodayAttendanceLogStatus().subscribe((data)=>{
-      this.totalEmployees = data.length;
-      this.attendanceLogService.getTodayAttendanceLogStatus().subscribe((data)=>{
-        this.presentEmployees = data.filter(log => log.status === 'Present').length;
-        this.absentEmployees = data.filter(log => log.status === 'Absent').length;
-        this.workFromHomeEmployees = data.filter(log => log.status === 'Work From Home').length;
-
-        this.allEmployees = data.map(employee =>{
-          const log = data;
-          return {
-            userId: employee.userId,
-            inOutTime: employee.inOutTime,
-            checkType: employee.checkType,
-            total: employee.total,
-            present: employee.present,
-            wfh: employee.wfh,
-            absent: employee.absent,
-            startDate: employee.startDate,
-            endDate: employee.endDate,
-            attendanceLogTime: employee.attendanceLogTime,
-            firstName: employee.firstName,
-            lastName: employee.lastName,
-            totalHours: employee.totalHours,
-            profilePic: employee.profilePic,
-            fullName: employee.fullName,
-            lastCheckInTime: employee.lastCheckInTime,
-            lastCheckOutTime: employee.lastCheckOutTime,
-            status: employee.status === 'Present'? 'Present' : 'Absent',
-            inTime: employee.status === 'Present'? employee.inTime : null
-          };
-        })
-        this.filterEmployees();
-      })
-    })
+    this.subscribeToItemUpdates();
+    this.fetchAttendanceData();
     this.getSummaryData();
   }
 
-  attendanceLogModel: AttendanceLogModel ={
+  attendanceLogModel: AttendanceLogModel = {
     userId: 0,
     inOutTime: '',
     checkType: '',
@@ -79,13 +46,61 @@ export class EmployeeStatusComponent implements OnInit {
     lastCheckOutTime: '',
     status: '',
     inTime: ''
-  }
+  };
+  
 
-  getSummaryData(){
-    this.attendanceLogService.getSummaryAttendance(this.attendanceLogModel.startDate, this.attendanceLogModel.endDate).subscribe((data)=>{
-      this.attendanceLogModel = data;
+  private subscribeToItemUpdates(): void {
+    this.signalRService.itemUpdate$.subscribe(update => {
+      console.log('Item update received:', update);
+      if (update) {
+        this.getSummaryData();
+      }
     });
   }
+
+  private fetchAttendanceData(): void {
+    this.attendanceLogService.getTodayAttendanceLogStatus().subscribe((data) => {
+      this.totalEmployees = data.length;
+      this.presentEmployees = data.filter(log => log.status === 'Present').length;
+      this.absentEmployees = data.filter(log => log.status === 'Absent').length;
+      this.workFromHomeEmployees = data.filter(log => log.status === 'Work From Home').length;
+
+      this.allEmployees = data.map(employee => {
+        return {
+          userId: employee.userId,
+          inOutTime: employee.inOutTime,
+          checkType: employee.checkType,
+          total: employee.total,
+          present: employee.present,
+          wfh: employee.wfh,
+          absent: employee.absent,
+          startDate: employee.startDate,
+          endDate: employee.endDate,
+          attendanceLogTime: employee.attendanceLogTime,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          totalHours: employee.totalHours,
+          profilePic: employee.profilePic,
+          fullName: employee.fullName,
+          lastCheckInTime: employee.lastCheckInTime,
+          lastCheckOutTime: employee.lastCheckOutTime,
+          status: employee.status === 'Present' ? 'Present' : 'Absent',
+          inTime: employee.status === 'Present' ? employee.inTime : null
+        };
+      });
+      this.filterEmployees();
+    });
+  }
+
+  getSummaryData(): void {
+    const startDate = this.attendanceLogModel.startDate || '';  // Use empty string if not set
+    const endDate = this.attendanceLogModel.endDate || '';      // Use empty string if not set
+  
+    this.attendanceLogService.getSummaryAttendance(startDate, endDate).subscribe((data) => {
+      this.attendanceLogModel = data;
+      console.log('Summary data updated:', this.attendanceLogModel);
+    });
+  }  
 
   setFilter(filter: 'all' | 'present' | 'absent' | 'wfh'): void {
     this.filter = filter;

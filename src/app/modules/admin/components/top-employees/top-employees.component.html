@@ -1,5 +1,25 @@
-<div class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-4 animate-fade-down animate-once animate-duration-500">
+<div
+    class="p-2 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-4 animate-slideDown">
     <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
+        <div class="flex justify-between mb-4">
+            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
+            <div class="flex space-x-5">
+                <button title="View All"
+                    class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-users-viewfinder fa-xl" style="color: #0040ff;"></i>
+                </button>
+                <button title="Export to CSV"
+                    class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
+                    <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
+                </button>
+            </div>
+        </div>
+        <hr class="my-2 border-gray-300 dark:border-gray-700">
+        <app-table-with-tabs #hoursTable [tabs]="tabs" [tabNames]="tabNames" [data]="allEmployeesData"
+            [columns]="columns" (tabChanged)="onTabChanged($event)">
+            class="w-full"></app-table-with-tabs>
+    </div>
+    <!-- <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
         <div class="flex justify-between mb-4">
             <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
             <div class="flex space-x-5"> 
@@ -12,27 +32,11 @@
             </div>
         </div>
         <hr class="my-2 border-gray-300 dark:border-gray-700">
-        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
+        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="top5Employee" [columns]="columns"
             class="w-full"></app-table-with-tabs>
-    </div>
-    <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
-        <div class="flex justify-between mb-4">
-            <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
-            <div class="flex space-x-5"> 
-                <button title="View All" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
-                    <i class="fa-solid fa-users-viewfinder fa-xl" style="color: #0040ff;"></i>
-                </button>
-                <button (click)="exportMaxHoursToCSV()" title="Export to CSV" class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300">
-                    <i class="fa-solid fa-file-csv fa-xl" style="color: #38e97c;"></i>
-                </button>
-            </div>
-        </div>
-        <hr class="my-2 border-gray-300 dark:border-gray-700">
-        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"
-            class="w-full"></app-table-with-tabs>
-    </div>
+    </div> -->
 </div>
-<div class="p-2 py-4 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-4 animate-fade-down animate-once animate-duration-500">
+<!-- <div class="p-2 py-4 md:p-4 space-y-4 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-4 ">
     <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
         <div class="flex justify-between mb-4">
             <h1 class="text-xs font-bold text-blue-900 uppercase">Top Employees with Max Hours</h1>
@@ -46,7 +50,7 @@
             </div>
         </div>
         <hr class="my-2 border-gray-300 dark:border-gray-700">
-        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="maxHoursData" [columns]="columns"
+        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="top5Employee" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
     <div class="bg-white shadow-md shadow-yellow-300 rounded-lg p-4 border border-gray-200 w-full">
@@ -62,7 +66,7 @@
             </div>
         </div>
         <hr class="my-2 border-gray-300 dark:border-gray-700">
-        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="minHoursData" [columns]="columns"
+        <app-table-with-tabs [tabs]="tabs" [tabNames]="tabNames" [data]="top5Employee" [columns]="columns"
             class="w-full"></app-table-with-tabs>
     </div>
-</div>
+</div> -->

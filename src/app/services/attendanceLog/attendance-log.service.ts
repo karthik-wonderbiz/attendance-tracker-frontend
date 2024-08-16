@@ -43,15 +43,21 @@ export class AttendanceLogService {
 
   getAllAttendanceLogs(): Observable<AttendanceLogModel[]> {
     return this.http.get<AttendanceLogModel[]>(this.urlMain).pipe(
+      map(logs => 
+        logs.map(log => ({
+          ...log,
+          fullName: ConcatName.concatName(log.firstName, log.lastName)
+        }))
+      ),
       catchError(error => {
-        console.error('Error fetching all attendance logs', error);
+        console.error('Error fetching today\'s attendance logs', error);
         return of([]);
       })
     );
   }
   
-  getAllEmployeesHours(startDate: string, endDate: string): Observable<AttendanceLogModel[]> {
-    const attUrl = `${this.urlMain}/totalhours?startDate=${startDate}&endDate=${endDate}`;
+  getAllEmployeesHours(startDate: string, endDate: string, reportType: string): Observable<AttendanceLogModel[]> {
+    const attUrl = `${this.urlMain}/totalhours?startDate=${startDate}&endDate=${endDate}&reportType=${reportType}`;
     return this.http.get<AttendanceLogModel[]>(attUrl).pipe(
       map(employees => 
         employees.map(employee => ({

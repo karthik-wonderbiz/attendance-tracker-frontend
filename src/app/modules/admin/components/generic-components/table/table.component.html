@@ -141,9 +141,9 @@
 
 
 
-<div class="flex overflow-auto animate-fade-down animate-once animate-duration-500" [ngClass]="columns.length <= 3 && columns.length !=2 ? 'max-h-[50vh]' : ''">
+<div class="flex overflow-auto " [ngClass]="columns.length <= 3 && columns.length != 2 ? 'max-h-[50vh]' : ''">
   <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 animate-slideDown">
     <thead
       class="text-xs text-gray-700 uppercase bg-blue-100 dark:bg-blue-900 dark:text-gray-400 border-b border-blue-200 dark:border-blue-700">
       <tr>
@@ -170,8 +170,14 @@
           <ng-template #simpleContent class="text-center">
             <ng-container *ngIf="column.key === 'fullName'; else defaultContent">
               <div class="flex items-center">
-                <img class="w-12 h-12 rounded-full border-3 border-yellow-400 dark:border-yellow-700" [src]="'data:image/jpeg;base64,' + row.profilePic"
-                  alt="Employee image">
+                <img class="w-12 h-12 rounded-full border-3"
+                  [src]="'data:image/jpeg;base64,' + row.profilePic"
+                  alt="Employee image"
+                  [ngClass]="{
+                    'border-green-500 dark:border-green-700': row.status === 'Present',
+                    'border-red-500 dark:border-red-700': row.status === 'Absent',
+                    'border-yellow-400 dark:border-yellow-700': !row.status
+                  }">
                 <div class="ps-3">
                   <div class="font-semibold text-base text-gray-800 dark:text-gray-200">{{ row[column.key] }}</div>
                 </div>
@@ -206,3 +212,4 @@
     </tbody>
   </table>
 </div>
+
