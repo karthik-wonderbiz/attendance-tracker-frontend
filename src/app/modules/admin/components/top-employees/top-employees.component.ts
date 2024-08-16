@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableWithTabsComponent } from '../generic-components/table-with-tabs/table-with-tabs.component';
-import { ngxCsv } from 'ngx-csv';
 import { DataService } from '../../../../services/data.service';
+import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
+import { SignalRService } from '../../../../services/signalR/signal-r.service';
 
 @Component({
   selector: 'app-top-employees',
@@ -9,96 +10,55 @@ import { DataService } from '../../../../services/data.service';
   styleUrls: ['./top-employees.component.css']
 })
 export class TopEmployeesComponent implements OnInit {
-  @ViewChild('maxHoursTable') maxHoursTable: TableWithTabsComponent | undefined;
-  @ViewChild('minHoursTable') minHoursTable: TableWithTabsComponent | undefined;
-  
-  maxHoursData: any[] = [];
-  minHoursData: any[] = [];
-  allMaxHoursData: any[] = [];
-  allMinHoursData: any[] = [];
+  @ViewChild('hoursTable') hoursTable: TableWithTabsComponent | undefined;
+
+  top5Employee: any[] = [];
+  allEmployeesData: any[] = [];
   columns = [
-    { key: 'fullName', label: 'Name' },
+    { key: 'fullName', label: 'Employee Name' },
     { key: 'totalHours', label: 'Total Hours' }
   ];
   tabNames = ['All Time', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];
-  tabs = ['AllTime', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];
-  showMaxTop5 = true;
-  showMinTop5 = false;
+  tabs = ['All-Time', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private attendanceLogService: AttendanceLogService,
+    private signalRService: SignalRService
+  ) {}
 
   ngOnInit(): void {
-    this.dataService.getTop5Employees().subscribe(data => {
-      this.maxHoursData = data.max;
-      this.minHoursData = data.min;
-      this.allMaxHoursData = data.max;
-      this.allMinHoursData = data.min;
+    const startDate = '';
+    const endDate = '';
+    const reportType = 'Daily';
+
+    this.loadEmployeeData(startDate, endDate, reportType);
+    this.subscribeToItemUpdates(); // Subscribe to SignalR updates
+  }
+
+  // Method to load data based on the selected tab
+  loadEmployeeData(startDate: string, endDate: string, reportType: string): void {
+    this.attendanceLogService.getAllEmployeesHours(startDate, endDate, reportType).subscribe((data) => {
+      this.top5Employee = data.slice(0, 4);
+      this.allEmployeesData = data;
+      console.log(`Top 5 Employee Data for ${reportType}:`, this.top5Employee);
     });
+  }
 
-    this.dataService.getAllEmployees().subscribe(data => {
-      const sortedData = data.sort((a, b) => b.dailyHours - a.dailyHours);
-      this.allMaxHoursData = sortedData;
-      this.allMinHoursData = sortedData.reverse();
+  // Method called when a tab is changed
+  onTabChanged(reportType: string): void {
+    const startDate = ''; 
+    const endDate = '';
+    this.loadEmployeeData(startDate, endDate, reportType);
+  }
+
+  // Subscribe to SignalR updates
+  private subscribeToItemUpdates(): void {
+    this.signalRService.itemUpdate$.subscribe(update => {
+      if (update) {
+        const activeTab = this.hoursTable?.activeTab || 'Daily'; // Get the currently active tab
+        this.loadEmployeeData('', '', activeTab); // Reload data for the active tab
+      }
     });
-  }
-
-  toggleMaxHoursView(): void {
-    if (this.showMaxTop5) {
-      this.dataService.getAllEmployees().subscribe(data => {
-        this.allMaxHoursData = data.sort((a, b) => b.dailyHours - a.dailyHours);
-        this.maxHoursData = this.allMaxHoursData;
-      });
-    } else {
-      this.maxHoursData = this.allMaxHoursData.slice(0, 5);
-    }
-    this.showMaxTop5 = !this.showMaxTop5;
-  }
-
-  toggleMinHoursView(): void {
-    if (this.showMinTop5) {
-      this.dataService.getAllEmployees().subscribe(data => {
-        this.allMinHoursData = data.sort((a, b) => b.dailyHours - a.dailyHours).reverse();
-        this.minHoursData = this.allMinHoursData.slice(0, 5);
-      });
-    } else {
-      this.minHoursData = this.allMinHoursData;
-    }
-    this.showMinTop5 = !this.showMinTop5;
-  }
-
-  exportMaxHoursToCSV(): void {
-    const filteredData = this.maxHoursTable?.getFilteredData() || this.maxHoursData;
-    const options = {
-      filename: 'top-employees-max-hours',
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      showLabels: true,
-      showTitle: false,
-      title: '',
-      useBom: true,
-      headers: this.columns.map(col => col.label),
-      noDownload: false,
-      removeEmptyValues: false
-    };
-    new ngxCsv(filteredData, options.filename, options);
-  }
-
-  exportMinHoursToCSV(): void {
-    const filteredData = this.minHoursTable?.getFilteredData() || this.minHoursData;
-    const options = {
-      filename: 'top-employees-min-hours',
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      showLabels: true,
-      showTitle: false,
-      title: '',
-      useBom: true,
-      headers: this.columns.map(col => col.label),
-      noDownload: false,
-      removeEmptyValues: true
-    };
-    new ngxCsv(filteredData, options.filename, options);
   }
 }

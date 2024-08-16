@@ -8,20 +8,46 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SignalRService {
   private hubConnection: signalR.HubConnection;
-  private itemUpdateSubject = new BehaviorSubject<any>(null);
 
+  // Subjects for different types of updates
+  private itemUpdateSubject = new BehaviorSubject<any>(null);
+  private userUpdateSubject = new BehaviorSubject<any>(null);
+  private employeeUpdateSubject = new BehaviorSubject<any>(null);
+
+  // Observables to expose updates
   itemUpdate$ = this.itemUpdateSubject.asObservable();
+  userUpdate$ = this.userUpdateSubject.asObservable();
+  employeeUpdate$ = this.employeeUpdateSubject.asObservable();
 
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://192.168.29.46:5000/atsHub')
+      .withUrl('http://192.168.29.46:5000/atsHub') // Update this URL to match your backend's address
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
-    this.hubConnection.start().catch(err => console.error('SignalR Connection Error: ', err));
+    this.startConnection();
+    this.registerSignalRListeners();
+  }
 
+  private startConnection(): void {
+    this.hubConnection.start().catch(err => console.error('SignalR Connection Error: ', err));
+  }
+
+  private registerSignalRListeners(): void {
+    // Listener for item updates
     this.hubConnection.on('ReceiveItemUpdate', (userId: number, attendanceLogTime: Date, checkType: string) => {
       this.itemUpdateSubject.next({ userId, attendanceLogTime, checkType });
+    });
+
+    // Listener for user updates
+    this.hubConnection.on('ReceiveUserUpdate', (email: string, password: string, contactNo: string) => {
+      this.userUpdateSubject.next({ email, password, contactNo });
+    });
+
+    // Listener for employee updates
+    this.hubConnection.on('ReceiveEmployeeUpdate', 
+      (userId: number, employeeCode: string, firstName: string, lastName: string, designationId: number, genderId: number, profilePic: string) => {
+        this.employeeUpdateSubject.next({ userId, employeeCode, firstName, lastName, designationId, genderId, profilePic });
     });
   }
 }

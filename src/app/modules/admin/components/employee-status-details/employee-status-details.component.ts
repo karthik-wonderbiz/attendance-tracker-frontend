@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ngxCsv } from 'ngx-csv';
 import { EncryptDescrypt } from '../../../../utils/genericFunction';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
+import { SignalRService } from '../../../../services/signalR/signal-r.service';
 
 @Component({
   selector: 'app-employee-status-details',
@@ -19,16 +20,26 @@ export class EmployeeStatusDetailsComponent implements OnInit {
     { key: 'inTime', label: 'In time' }
   ];
 
-  constructor(private router: Router, private attendanceLogService: AttendanceLogService) {}
+  constructor(private router: Router, private attendanceLogService: AttendanceLogService, private signalRService: SignalRService) {}
 
   ngOnInit() {
+    this.subscribeToItemUpdates();
     this.getAllEmployeesLogsStatus();
+  }
+
+  private subscribeToItemUpdates(): void {
+    this.signalRService.itemUpdate$.subscribe(update => {
+      console.log('Item update received:', update);
+      if (update) {
+        this.getAllEmployeesLogsStatus();
+      }
+    });
   }
 
   getAllEmployeesLogsStatus(){
     this.attendanceLogService.getTodayAttendanceLogStatus().subscribe(data => {
       this.employeeData = data;
-      console.log("Employee logs: ", this.employeeData);
+      console.log("Employee Today's Entries: ", this.employeeData);
     });
   }
 

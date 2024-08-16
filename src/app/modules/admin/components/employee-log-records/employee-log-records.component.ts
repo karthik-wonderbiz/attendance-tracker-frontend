@@ -14,8 +14,7 @@ export class EmployeeLogRecordsComponent implements OnInit {
   @Input() employeeLogData: any[] = [];
   
   columns = [
-    { key: 'userId', label: 'Employee Id' },
-    { key: 'empName', label: 'Employee Name' },
+    { key: 'fullName', label: 'Employee Name' },
     { key: 'attendanceDate', label: 'Attendance Date' },
     { key: 'attendanceTime', label: 'Attendance Time' },
     { key: 'checkType', label: 'Check Type' }
@@ -23,7 +22,7 @@ export class EmployeeLogRecordsComponent implements OnInit {
 
   constructor(
     private attendanceLogService: AttendanceLogService,
-    private signalRService: SignalRService // Inject SignalR service
+    private signalRService: SignalRService
   ) {}
 
   ngOnInit(): void {

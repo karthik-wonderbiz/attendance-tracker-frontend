@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { EncryptDescrypt } from '../../../../utils/genericFunction';
 import { EmployeeService } from '../../../../services/employee/employee.service';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
+import { SignalRService } from '../../../../services/signalR/signal-r.service';
 
 @Component({
   selector: 'app-employee-attendance-records',
@@ -29,13 +30,29 @@ export class EmployeeAttendanceRecordsComponent implements OnInit {
   formattedStartDate = this.startDate.toLocaleDateString();
   formattedEndDate = this.startDate.toLocaleDateString();
 
-  constructor(private router: Router, private attendanceLogService: AttendanceLogService) {}
+
+  constructor(private router: Router, private attendanceLogService: AttendanceLogService, private signalRService: SignalRService) {}
 
   ngOnInit(): void {
-    this.attendanceLogService.getAllEmployeesHours(this.formattedStartDate, this.formattedEndDate).subscribe(data => {
+    this.subscribeToItemUpdates();
+    this.getAllEmployeeHours(); 
+  }
+
+  private subscribeToItemUpdates(): void {
+    this.signalRService.itemUpdate$.subscribe(update => {
+      console.log('Item update received:', update);
+      if (update) {
+        this.getAllEmployeeHours();
+      }
+    });
+  }
+
+  getAllEmployeeHours(){
+    const reportType ='';
+    this.attendanceLogService.getAllEmployeesHours(this.formattedStartDate, this.formattedEndDate, reportType).subscribe(data => {
       this.employees = data;
       this.allSuggestions = this.employees.map(employee => employee.fullName);
-      console.log('Employee Data:', this.employees);
+      console.log("Employee Today's working hours Data:", this.employees);
     });
   }
 
