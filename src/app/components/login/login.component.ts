@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   loginData = {
-    employeeEmail: '',
+    email: '',
     password: ''
   };
 
@@ -24,9 +24,9 @@ export class LoginComponent {
   constructor(private employeeService: EmployeeService, private router: Router, private auth: AuthService) {}
 
   onLogin(loginForm: NgForm): void {
-    const formData = loginForm.value;
+    const loginData = loginForm.value;
     this.employeeService.getEmployeeData().subscribe(employee => {
-      if (employee && employee.employeeEmail === formData.employeeEmail && employee.password === formData.password) {
+      if (employee && employee.email === loginData.email && employee.password === loginData.password) {
         console.log('Login successful');
         this.loginError = '';
         this.isInvalid = false;
