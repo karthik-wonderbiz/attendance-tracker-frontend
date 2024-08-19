@@ -29,11 +29,10 @@ export class EmployeeService {
   }
 
   getEmployeeByUserId(id: string): Observable<EmployeeInfoModel | null> {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/user/${id}`;
     return this.http.get<EmployeeInfoModel>(url).pipe(
       map(employee => ({
-        ...employee,
-        fullName: ConcatName.concatName(employee.firstName, employee.lastName)
+        ...employee
       })),
       catchError(error => {
         console.error(`Error fetching employee with ID ${id}`, error);

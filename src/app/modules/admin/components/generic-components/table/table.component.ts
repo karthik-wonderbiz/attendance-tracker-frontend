@@ -10,6 +10,8 @@ export class TableComponent {
   @Input() data: any[] = [];
   @Input() columns: { key: string, label: string, subColumns?: { key: string, label: string }[] }[] = [];
   @Output() rowClicked = new EventEmitter<any>();
+  @Output() editClicked = new EventEmitter<any>();
+  @Output() deleteClicked = new EventEmitter<any>();
 
   isObject(value: any): boolean {
     return value && typeof value === 'object' && !Array.isArray(value);
@@ -18,7 +20,16 @@ export class TableComponent {
   onRowClick(row: any) {
     this.rowClicked.emit(row);
   }
+
+  onEditClick(row: any) {
+    this.editClicked.emit(row);
+  }
+
+  onDeleteClick(row: any) {
+    this.deleteClicked.emit(row);
+  }
 }
+
 
 
 

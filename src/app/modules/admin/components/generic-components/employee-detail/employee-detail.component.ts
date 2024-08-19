@@ -50,6 +50,7 @@ export class EmployeeDetailComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
 
+  
   ngOnInit() {
     const encryptedId = this.route.snapshot.paramMap.get('id');
     if (encryptedId) {
@@ -111,13 +112,13 @@ export class EmployeeDetailComponent implements OnInit {
         .getActivityRecordsInByUserId(employeeId, this.startDate, this.endDate)
         .subscribe((dataIn) => {
           this.activityInRecords = this.formatActivityRecords(dataIn);
-          console.log('Activity In Records:', this.activityInRecords);
+          // console.log('Activity In Records:', this.activityInRecords);
         });
 
       this.attendanceLogService.getActivityRecordsOutByUserId(employeeId, this.startDate, this.endDate)
         .subscribe((dataOut) => {
           this.activityOutRecords = this.formatActivityRecords(dataOut);
-          console.log('Activity Out Records:', this.activityOutRecords);
+          // console.log('Activity Out Records:', this.activityOutRecords);
         });
     }
   }
@@ -139,12 +140,12 @@ export class EmployeeDetailComponent implements OnInit {
         // Reload employee, user, and activity records when an update is received
         this.employeeService.getEmployeeByUserId(employeeId).subscribe(data => {
           this.employee = data;
-          console.log('Updated Employee Data:', this.employee);
+          // console.log('Updated Employee Data:', this.employee);
         });
 
         this.userService.getUserById(employeeId).subscribe(data => {
           this.user = data;
-          console.log('Updated User Data:', this.user);
+          // console.log('Updated User Data:', this.user);
         });
 
         this.fetchActivityRecords();
