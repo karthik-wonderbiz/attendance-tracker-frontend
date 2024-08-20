@@ -3,16 +3,19 @@ import { Router } from '@angular/router';
 import { EncryptDescrypt } from '../../../../utils/genericFunction';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 import { SignalRService } from '../../../../services/signalR/signal-r.service';
+import { EmployeeService } from '../../../../services/employee/employee.service';
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
-  selector: 'app-employee-attendance-records',
-  templateUrl: './employee-attendance-records.component.html',
-  styleUrls: ['./employee-attendance-records.component.css'] // Changed styleUrl to styleUrls
+  selector: 'app-all-employees',
+  templateUrl: './all-employees.component.html',
+  styleUrls: ['./all-employees.component.css'],
 })
-export class EmployeeAttendanceRecordsComponent implements OnInit {
+
+export class AllEmployeesComponent implements OnInit {
   @Output() rowClicked = new EventEmitter<any>();
   employees: any[] = [];
-  allEmployees: any[] = []; // To store all fetched employees
+  allEmployees: any[] = [];
   allSuggestions: string[] = [];
   filteredSuggestions: string[] = [];
   searchTerms: string[] = [];
@@ -20,25 +23,24 @@ export class EmployeeAttendanceRecordsComponent implements OnInit {
 
   columns = [
     { key: 'fullName', label: 'Name' },
-    { key: 'lastCheckInTime', label: 'In Time' },
-    { key: 'lastCheckOutTime', label: 'Out Time' },
-    { key: 'totalHours', label: 'Total Hours' }
+    { key: 'email', label: 'Email' },
+    { key: 'action', label: 'Action' },
   ];
 
-  startDate: Date = new Date();
-  endDate: Date = new Date();
-  formattedStartDate = this.startDate.toLocaleDateString();
-  formattedEndDate = this.startDate.toLocaleDateString();
-
-  constructor(private router: Router, private attendanceLogService: AttendanceLogService, private signalRService: SignalRService) {}
+  constructor(
+    private router: Router,
+    private employeeService: EmployeeService,
+    private signalRService: SignalRService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.subscribeToItemUpdates();
-    this.getAllEmployeeHours(); 
+    this.getAllEmployeeHours();
   }
 
   private subscribeToItemUpdates(): void {
-    this.signalRService.itemUpdate$.subscribe(update => {
+    this.signalRService.itemUpdate$.subscribe((update) => {
       console.log('Item update received:', update);
       if (update) {
         this.getAllEmployeeHours();
@@ -48,33 +50,55 @@ export class EmployeeAttendanceRecordsComponent implements OnInit {
 
   getAllEmployeeHours() {
     const reportType = '';
-    this.attendanceLogService.getAllEmployeesHours(this.formattedStartDate, this.formattedEndDate, reportType).subscribe(data => {
-      this.allEmployees = data; // Store all employee data
-      this.allSuggestions = this.allEmployees.map(employee => employee.fullName);
-      this.performSearch(); // Perform initial search/filter based on searchTerms
-      console.log("Employee Today's working hours Data:", this.allEmployees);
+    this.employeeService.getAllEmployeeInfo().subscribe((data) => {
+      this.allEmployees = data;
+      this.allSuggestions = this.allEmployees.map(
+        (employee) => employee.fullName
+      );
+      this.performSearch();
+      console.log("Employee Data:", this.allEmployees);
     });
   }
 
   onRowClicked(employee: any) {
-    if (employee && employee.userId) {
-      console.log(employee.userId);
-      const encryptedId = EncryptDescrypt.encrypt(employee.userId.toString());
+    if (employee && employee.id) {
+      console.log(employee.id);
+      const encryptedId = EncryptDescrypt.encrypt(employee.id.toString());
       this.router.navigate(['/admin/employee-detail', encryptedId]);
     } else {
       console.error('Employee ID is missing or data is incorrect');
     }
   }
 
+  onEditClicked(employee: any) {
+    alert("Edit"); 
+  }
+
+  onDeleteClicked(employee: any) {
+    if (employee && employee.id) {
+      console.log(employee.id);
+      this.userService.deleteUserById(employee.userId).subscribe((data)=>{
+        alert("Employee deleted Successfully.");
+        window.location.reload();
+      })
+    } else {
+      console.error('Employee ID is missing or data is incorrect');
+    }
+  }
+
   onInputChange() {
-    this.filteredSuggestions = this.allSuggestions.filter(suggestion =>
+    this.filteredSuggestions = this.allSuggestions.filter((suggestion) =>
       suggestion.toLowerCase().includes(this.searchInput.toLowerCase())
     );
   }
 
   addTerm() {
     const trimmedInput = this.searchInput.trim();
-    if (trimmedInput && this.allSuggestions.includes(trimmedInput) && !this.searchTerms.includes(trimmedInput)) {
+    if (
+      trimmedInput &&
+      this.allSuggestions.includes(trimmedInput) &&
+      !this.searchTerms.includes(trimmedInput)
+    ) {
       this.searchTerms.push(trimmedInput);
       this.searchInput = ''; // Clear the input box
       this.filteredSuggestions = []; // Clear suggestions
@@ -83,7 +107,7 @@ export class EmployeeAttendanceRecordsComponent implements OnInit {
   }
 
   removeTerm(term: string) {
-    this.searchTerms = this.searchTerms.filter(t => t !== term);
+    this.searchTerms = this.searchTerms.filter((t) => t !== term);
     this.performSearch(); // Filter employees based on the updated search terms
   }
 
@@ -104,8 +128,8 @@ export class EmployeeAttendanceRecordsComponent implements OnInit {
       this.employees = this.allEmployees; // Show all employees if no search terms
     } else {
       const query = this.searchTerms.join(' ').toLowerCase();
-      this.employees = this.allEmployees.filter(employee =>
-        this.searchTerms.some(term =>
+      this.employees = this.allEmployees.filter((employee) =>
+        this.searchTerms.some((term) =>
           employee.fullName.toLowerCase().includes(term.toLowerCase())
         )
       );

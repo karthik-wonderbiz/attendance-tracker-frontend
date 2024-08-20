@@ -31,6 +31,8 @@ import { SectionComponent } from '../../shared/components/section/section.compon
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 import { TopEmployeesComponent } from './components/top-employees/top-employees.component';
 import { EmployeeLogRecordsComponent } from './components/employee-log-records/employee-log-records.component';
+import { AllEmployeesComponent } from './components/all-employees/all-employees.component';
+import { AllTopEmployeesComponent } from './components/all-top-employees/all-top-employees.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { EmployeeLogRecordsComponent } from './components/employee-log-records/e
     TableWithTabsComponent,
     EmployeeDetailComponent,
     EmployeeAttendanceRecordsComponent,
-    EmployeeLogRecordsComponent
+    EmployeeLogRecordsComponent,
+    AllEmployeesComponent,
+    AllTopEmployeesComponent
   ],
   imports: [
     CommonModule,

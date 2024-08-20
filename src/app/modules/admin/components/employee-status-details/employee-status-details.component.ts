@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ngxCsv } from 'ngx-csv';
 import { EncryptDescrypt } from '../../../../utils/genericFunction';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
@@ -20,11 +20,28 @@ export class EmployeeStatusDetailsComponent implements OnInit {
     { key: 'inTime', label: 'In time' }
   ];
 
-  constructor(private router: Router, private attendanceLogService: AttendanceLogService, private signalRService: SignalRService) {}
+  showAll: boolean = false;
+
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute,
+    private attendanceLogService: AttendanceLogService, 
+    private signalRService: SignalRService
+  ) {}
 
   ngOnInit() {
     this.subscribeToItemUpdates();
-    this.getAllEmployeesLogsStatus();
+
+    // Check route parameter to decide whether to show all records or not
+    this.route.paramMap.subscribe(params => {
+      this.showAll = params.get('showAll') === 'true';
+      if (this.showAll) {
+        this.getAllEmployeesLogsStatus();
+      } else {
+        // this.getTop5EmployeesLogsStatus();
+        this.getAllEmployeesLogsStatus();
+      }
+    });
   }
 
   private subscribeToItemUpdates(): void {
@@ -36,10 +53,17 @@ export class EmployeeStatusDetailsComponent implements OnInit {
     });
   }
 
-  getAllEmployeesLogsStatus(){
+  // getTop5EmployeesLogsStatus() {
+  //   this.attendanceLogService.getTodayAttendanceLogStatus().subscribe(data => {
+  //     this.employeeData = data.slice(0,5);
+  //     console.log("Employee Today's Entries: ", this.employeeData);
+  //   });
+  // }
+
+  getAllEmployeesLogsStatus() {
     this.attendanceLogService.getTodayAttendanceLogStatus().subscribe(data => {
       this.employeeData = data;
-      console.log("Employee Today's Entries: ", this.employeeData);
+      console.log("All Employee Today's Entries: ", this.employeeData);
     });
   }
 
@@ -63,13 +87,16 @@ export class EmployeeStatusDetailsComponent implements OnInit {
 
   onRowClicked(employee: any) {
     if (employee && employee.id) {
-      // const empId = "1";
-
+      console.log(employee.id);
       const encryptedId = EncryptDescrypt.encrypt(employee.id.toString());
       this.router.navigate(['/admin/employee-detail', encryptedId]);
     } else {
       console.error('Employee ID is missing or data is incorrect');
     }
   }
-}
 
+  // Navigate to show all records
+  viewAllRecords() {
+    this.router.navigate(['/admin/employee-status-details', { showAll: 'true' }]);
+  }
+}

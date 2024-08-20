@@ -1,20 +1,33 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableWithTabsComponent } from '../generic-components/table-with-tabs/table-with-tabs.component';
-import { DataService } from '../../../../services/data.service';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 import { SignalRService } from '../../../../services/signalR/signal-r.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-employees',
   templateUrl: './top-employees.component.html',
   styleUrls: ['./top-employees.component.css']
 })
+
 export class TopEmployeesComponent implements OnInit {
   @ViewChild('hoursTable') hoursTable: TableWithTabsComponent | undefined;
 
   top5Employee: any[] = [];
   allEmployeesData: any[] = [];
-  columns = [
+  columns1 = [
+    { key: 'fullName', label: 'Employee Name' },
+    { key: 'totalHours', label: 'Total Hours' }
+  ];
+  columns2 = [
+    { key: 'fullName', label: 'Employee Name' },
+    { key: 'totalHours', label: 'Total Hours' }
+  ];
+  columns3 = [
+    { key: 'fullName', label: 'Employee Name' },
+    { key: 'totalHours', label: 'Total Hours' }
+  ];
+  columns4 = [
     { key: 'fullName', label: 'Employee Name' },
     { key: 'totalHours', label: 'Total Hours' }
   ];
@@ -22,9 +35,9 @@ export class TopEmployeesComponent implements OnInit {
   tabs = ['All-Time', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];
 
   constructor(
-    private dataService: DataService,
     private attendanceLogService: AttendanceLogService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,13 +46,12 @@ export class TopEmployeesComponent implements OnInit {
     const reportType = 'Daily';
 
     this.loadEmployeeData(startDate, endDate, reportType);
-    this.subscribeToItemUpdates(); // Subscribe to SignalR updates
+    this.subscribeToItemUpdates();
   }
 
-  // Method to load data based on the selected tab
   loadEmployeeData(startDate: string, endDate: string, reportType: string): void {
     this.attendanceLogService.getAllEmployeesHours(startDate, endDate, reportType).subscribe((data) => {
-      this.top5Employee = data.slice(0, 4);
+      this.top5Employee = data.slice(0, 5);
       this.allEmployeesData = data;
       console.log(`Top 5 Employee Data for ${reportType}:`, this.top5Employee);
     });
@@ -61,4 +73,9 @@ export class TopEmployeesComponent implements OnInit {
       }
     });
   }
+  
+  viewAll(type: string): void {
+    this.router.navigate(['/admin/all-top-employees', type]);
+  }
+  
 }

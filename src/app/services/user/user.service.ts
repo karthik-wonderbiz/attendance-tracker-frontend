@@ -21,4 +21,14 @@ export class UserService {
       })
     );
   }
+
+  deleteUserById(userId: string): Observable<UserModel | null>{
+    const url = `${this.baseUrl}/${userId}`;
+    return this.http.delete<UserModel>(url).pipe(
+      catchError(error => {
+        console.error(`Error deleting user with ID ${userId}`, error);
+        return of(null);
+      })
+    );
+  }
 }

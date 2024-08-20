@@ -29,7 +29,7 @@ export class AttendanceLogService {
       })
     );
   }
-
+  
   getSummaryAttendance(startDate: string, endDate: string): Observable<any> {
     const attUrl = `${this.urlMain}/summary?startDate=${startDate}&endDate=${endDate}`
     return this.http.get<AttendanceLogModel>(attUrl).pipe(

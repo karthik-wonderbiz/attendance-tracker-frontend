@@ -4,13 +4,13 @@
   <div class="flex flex-col md:flex-row items-center">
     <!-- Logo Section -->
     <div class="w-24 h-24 flex-shrink-0 mb-4 md:mb-0 md:mr-6">
-      <img class="w-full h-full rounded-full border-2 border-yellow-400 object-cover shadow-md" [src]="'data:image/jpeg;base64,' + employee.profilePic"
+      <img class="w-full h-full rounded-full border-2 border-yellow-400 object-cover shadow-md" [src]="'data:image/jpeg;base64,' + employee[0]?.profilePic"
         alt="Employee Logo">
     </div>
     <!-- Employee Details Section -->
     <div class="flex-1">
-      <p class="text-2xl font-semibold text-blue-900 mb-2 inline-block">{{ employee.fullName }}</p>
-      <p class="text-gray-700"><strong class="mr-2 text-yellow-500">Email:</strong> <span>{{ employee.email ||
+      <p class="text-2xl font-semibold text-blue-900 mb-2 inline-block">{{ employee[0]?.firstName }} {{ employee[0]?.lastName }}</p>
+      <p class="text-gray-700"><strong class="mr-2 text-yellow-500">Email:</strong> <span>{{ user.email ||
           'john.doe@gmail.com' }}</span></p>
       <p class="text-gray-700"><strong class="mr-2 text-yellow-500">Phone:</strong> <span>{{ user.contactNo ||
           '8766545632' }}</span></p>
