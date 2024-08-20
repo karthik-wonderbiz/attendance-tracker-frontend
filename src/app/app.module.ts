@@ -20,6 +20,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ImgByteComponent } from './img-byte/img-byte.component';
+import { WebcamSnapshotModule } from "./components/webcam-snapshot/webcam-snapshot.module";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ImgByteComponent } from './img-byte/img-byte.component';
     BaseChartDirective,
     FullCalendarModule,
     HttpClientModule,
-  ],
+    WebcamSnapshotModule
+],
   providers: [provideCharts(withDefaultRegisterables()), provideHttpClient(), DataService],
   bootstrap: [AppComponent]
 })

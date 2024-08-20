@@ -44,7 +44,6 @@
 
 </div>
 
-
 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto bg-fixed bg-center bg-cover">
     <a class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
         <img class="w-8 h-8 mr-2" src="https://www.pngmart.com/files/6/Time-Attendance-System-PNG-HD.png" alt="logo">
@@ -78,7 +77,7 @@
 		c0,0.938-0.41,1.829-1.125,2.438C30.712,38.068,26.911,39.579,22.761,39.579z" />
                                     </g>
                                 </svg>
-                                <img class="absolute h-full w-full" *ngIf="thumbnail" [src]="thumbnail" alt="Uploaded image preview" />
+                                <img class="absolute h-full w-full object-cover object-center" *ngIf="thumbnail" [src]="thumbnail" alt="Uploaded image preview" />
                             </div>
                         </div>
 
@@ -100,8 +99,6 @@
                             </div>
 
                         </div>
-
-
 
                     </div>
 
