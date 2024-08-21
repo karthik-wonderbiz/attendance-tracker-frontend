@@ -44,10 +44,10 @@ export class UpdateEmployeeDetailsComponent {
   constructor(
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
-    private router: Router,
+    // private router: Router,
     private sanitizer: DomSanitizer,
     private http: HttpClient,
-    private signupService: SignUpService
+    // private signupService: SignUpService
   ) {}
 
   ngOnInit(): void {
@@ -59,15 +59,22 @@ export class UpdateEmployeeDetailsComponent {
     //     });
     //   }
     // });
-    // const encryptedId = this.route.snapshot.paramMap.get('id');
-    // console.log("EncryptedId", encryptedId);
-    // if(encryptedId){
-    //   const employeeId = EncryptDescrypt.decrypt(encryptedId);
-    //   console.log('Decrypted Employee ID:', employeeId);
-    //   this.employeeService.getEmployeeByUserId(employeeId).subscribe(data => {
-    //     this.employee = data;
-    //   });
-    // }
+    const encryptedId = this.route.snapshot.paramMap.get('id');
+    console.log("EncryptedId", encryptedId);
+    if(encryptedId){
+      const employeeId = EncryptDescrypt.decrypt(encryptedId);
+      console.log('Decrypted Employee ID:', employeeId);
+      this.employeeService.getEmployeeByUserId(employeeId).subscribe(data => {
+        console.log(data);
+        if(data){
+          this.employee.firstName = data.firstName;
+          this.employee.lastName = data.lastName;
+          this.employee.email = data.email;
+          this.employee.contactNo = data.contactNo;
+          this.employee.profilePic = data.profilePic;
+        }
+      });
+    }
   }
 
   RegisterEmp(empForm: NgForm): void {
