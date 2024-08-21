@@ -1,17 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { EncryptDescrypt } from '../../../../utils/genericFunction';
-import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 import { SignalRService } from '../../../../services/signalR/signal-r.service';
 import { EmployeeService } from '../../../../services/employee/employee.service';
 import { UserService } from '../../../../services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-employees',
   templateUrl: './all-employees.component.html',
   styleUrls: ['./all-employees.component.css'],
 })
-
 export class AllEmployeesComponent implements OnInit {
   @Output() rowClicked = new EventEmitter<any>();
   employees: any[] = [];
@@ -24,6 +23,7 @@ export class AllEmployeesComponent implements OnInit {
   columns = [
     { key: 'fullName', label: 'Name' },
     { key: 'email', label: 'Email' },
+    { key: 'contactNo', label: 'Phone Number' },
     { key: 'action', label: 'Action' },
   ];
 
@@ -31,7 +31,8 @@ export class AllEmployeesComponent implements OnInit {
     private router: Router,
     private employeeService: EmployeeService,
     private signalRService: SignalRService,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +57,7 @@ export class AllEmployeesComponent implements OnInit {
         (employee) => employee.fullName
       );
       this.performSearch();
-      console.log("Employee Data:", this.allEmployees);
+      console.log('Employee Data:', this.allEmployees);
     });
   }
 
@@ -71,16 +72,22 @@ export class AllEmployeesComponent implements OnInit {
   }
 
   onEditClicked(employee: any) {
-    alert("Edit"); 
+    if (employee && employee.id) {
+      console.log(employee.id);
+      const encryptedId = EncryptDescrypt.encrypt(employee.id.toString());
+      this.router.navigate(['/admin/update-employee-details', encryptedId]);
+    } else {
+      console.error('Employee ID is missing or data is incorrect');
+    }
   }
 
   onDeleteClicked(employee: any) {
     if (employee && employee.id) {
       console.log(employee.id);
-      this.userService.deleteUserById(employee.userId).subscribe((data)=>{
-        alert("Employee deleted Successfully.");
+      this.userService.deleteUserById(employee.userId).subscribe((data) => {
+        alert('Employee deleted Successfully.');
         window.location.reload();
-      })
+      });
     } else {
       console.error('Employee ID is missing or data is incorrect');
     }

@@ -14,8 +14,8 @@ export class AttendanceLogService {
   constructor(private http: HttpClient) 
   { }
 
-  getTodayAttendanceLogStatus(): Observable<AttendanceLogModel[]> {
-    const statusUrl = `${this.urlMain}/status`;
+  getTodayAttendanceLogStatus(startDate: string): Observable<AttendanceLogModel[]> {
+    const statusUrl = `${this.urlMain}/status?Date=${startDate}`;
     return this.http.get<AttendanceLogModel[]>(statusUrl).pipe(
       map(logs => 
         logs.map(log => ({
@@ -41,8 +41,9 @@ export class AttendanceLogService {
     );
   }
 
-  getAllAttendanceLogs(): Observable<AttendanceLogModel[]> {
-    return this.http.get<AttendanceLogModel[]>(this.urlMain).pipe(
+  getAllAttendanceLogs(startDate: string): Observable<AttendanceLogModel[]> {
+    const url = `${this.urlMain}?startDate=${startDate}`;
+    return this.http.get<AttendanceLogModel[]>(url).pipe(
       map(logs => 
         logs.map(log => ({
           ...log,
@@ -50,14 +51,64 @@ export class AttendanceLogService {
         }))
       ),
       catchError(error => {
-        console.error('Error fetching today\'s attendance logs', error);
+        console.error('Error fetching attendance logs', error);
         return of([]);
       })
     );
   }
   
+  getAllAttendanceLogsInOut(startDate: string, currentType: string): Observable<AttendanceLogModel[]> {
+    const url = `${this.urlMain}/current-status?date=${startDate}&type=${currentType}`;
+    return this.http.get<AttendanceLogModel[]>(url).pipe(
+      map(logs => 
+        logs.map(log => ({
+          ...log,
+          fullName: ConcatName.concatName(log.firstName, log.lastName)
+        }))
+      ),
+      catchError(error => {
+        console.error('Error fetching attendance logs by type', error);
+        return of([]);
+      })
+    );
+  }  
+  
   getAllEmployeesHours(startDate: string, endDate: string, reportType: string): Observable<AttendanceLogModel[]> {
     const attUrl = `${this.urlMain}/totalhours?startDate=${startDate}&endDate=${endDate}&reportType=${reportType}`;
+    return this.http.get<AttendanceLogModel[]>(attUrl).pipe(
+      map(employees => 
+        employees.map(employee => ({
+          ...employee,
+          fullName: ConcatName.concatName(employee.firstName, employee.lastName)
+        }))
+      ),
+      catchError(error => {
+        console.error('Error fetching all employee hours', error);
+        return of([]);
+      })
+    );
+  }
+
+  getAllEmployeesInHours(): Observable<AttendanceLogModel[]> {
+    console.log("in hours");
+    const attUrl = `${this.urlMain}/total-hours/in`;
+    return this.http.get<AttendanceLogModel[]>(attUrl).pipe(
+      map(employees => 
+        employees.map(employee => ({
+          ...employee,
+          fullName: ConcatName.concatName(employee.firstName, employee.lastName)
+        }))
+      ),
+      catchError(error => {
+        console.error('Error fetching all employee hours', error);
+        return of([]);
+      })
+    );
+  }
+
+  getAllEmployeesOutHours(): Observable<AttendanceLogModel[]> {
+    console.log("out hours");
+    const attUrl = `${this.urlMain}/total-hours/out`;
     return this.http.get<AttendanceLogModel[]>(attUrl).pipe(
       map(employees => 
         employees.map(employee => ({

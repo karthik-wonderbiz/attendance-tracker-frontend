@@ -12,6 +12,7 @@ import { TopEmployeesComponent } from './components/top-employees/top-employees.
 import { EmployeeAttendanceRecordsComponent } from './components/employee-attendance-records/employee-attendance-records.component';
 import { AllEmployeesComponent } from './components/all-employees/all-employees.component';
 import { AllTopEmployeesComponent } from './components/all-top-employees/all-top-employees.component';
+import { UpdateEmployeeDetailsComponent } from './components/update-employee-details/update-employee-details.component';
 
 const routes: Routes = [
   {
@@ -24,13 +25,15 @@ const routes: Routes = [
       { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'employee-detail/:id', component: EmployeeDetailComponent },
+      { path: 'update-employee-details/:id', component: UpdateEmployeeDetailsComponent },
       { path: 'empLogs', component: EmployeeLogRecordsComponent },
       { path: 'employee-status-details', component: EmployeeStatusDetailsComponent },
-      {path:'topFiveEmployees', component: TopEmployeesComponent},
-      {path:'empTodayWorking', component: EmployeeAttendanceRecordsComponent},
+      {path:'todays-attendance', component: EmployeeStatusDetailsComponent},
+      {path:'employees-today-working', component: EmployeeAttendanceRecordsComponent},
       {path:'employees', component: AllEmployeesComponent},
-      {path:'empLogRecords', component: EmployeeLogRecordsComponent},
-      { path: 'all-top-employees/:type', component: AllTopEmployeesComponent }
+      {path:'employee-log-records', component: EmployeeLogRecordsComponent},
+      { path: 'all-top-employees/:type', component: AllTopEmployeesComponent },
+      {path:'updateEmployee', component: UpdateEmployeeDetailsComponent}
     ],
   },
 ];

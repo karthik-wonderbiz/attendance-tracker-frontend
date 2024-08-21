@@ -7,4 +7,9 @@
     </button>
   </li>
 </ul>
-<app-table [data]="filteredData" [columns]="columns" class="w-full"></app-table>
+<div *ngIf="isLoaded">
+  <app-table [data]="filteredData" [columns]="columns" class="w-full" (rowClicked)="onRowClicked($event)"></app-table>
+</div>
+<div class="flex justify-center m-5" *ngIf="!isLoaded">
+  <app-loader></app-loader>
+</div>

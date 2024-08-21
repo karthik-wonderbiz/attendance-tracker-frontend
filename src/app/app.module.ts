@@ -21,6 +21,10 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ImgByteComponent } from './img-byte/img-byte.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +43,8 @@ import { ImgByteComponent } from './img-byte/img-byte.component';
     BaseChartDirective,
     FullCalendarModule,
     HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
   ],
   providers: [provideCharts(withDefaultRegisterables()), provideHttpClient(), DataService],
   bootstrap: [AppComponent]

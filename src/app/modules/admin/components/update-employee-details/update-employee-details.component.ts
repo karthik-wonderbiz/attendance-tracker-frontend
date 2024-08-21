@@ -1,19 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import EmployeeModel from '../../model/employee-sign-up.model';
-import { EmployeeService } from '../../services/employee.service';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import EmployeeModel from '../../../../model/employee-sign-up.model';
+import ConfirmPassword from '../../../../model/confirm-password.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
-import ConfirmPassword from '../../model/confirm-password.model';
-import { SignUpService } from '../../shared/services/sign-up/sign-up.service';
+import { HttpClient } from '@angular/common/http'
+import { SignUpService } from '../../../../shared/services/sign-up/sign-up.service';
+import { NgForm } from '@angular/forms';
+import { EncryptDescrypt } from '../../../../utils/genericFunction';
+import { EmployeeService } from '../../../../services/employee/employee.service';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'],
+  selector: 'app-update-employee-details',
+  templateUrl: './update-employee-details.component.html',
+  styleUrl: './update-employee-details.component.css'
 })
-export class SignUpComponent implements OnInit {
+export class UpdateEmployeeDetailsComponent {
   employee: EmployeeModel = {
     firstName: '',
     lastName: '',
@@ -41,6 +42,7 @@ export class SignUpComponent implements OnInit {
   isServerError = false;
 
   constructor(
+    private route: ActivatedRoute,
     private employeeService: EmployeeService,
     private router: Router,
     private sanitizer: DomSanitizer,
@@ -48,16 +50,27 @@ export class SignUpComponent implements OnInit {
     private signupService: SignUpService
   ) {}
 
-  ngOnInit(): void {}
-
-  // onSubmit(): void {
-  //   this.isSubmitted = true;
-  //   setTimeout(() => { this.isSubmitted = false }, 2000);
-  // }
+  ngOnInit(): void {
+    // this.route.params.subscribe((params: Params) => {
+    //   const paramsId = params['id'];
+    //   if(paramsId != null){
+    //     this.userService.getUserById(paramsId).subscribe((data: UserModel) => {
+    //       this.user = data;
+    //     });
+    //   }
+    // });
+    // const encryptedId = this.route.snapshot.paramMap.get('id');
+    // console.log("EncryptedId", encryptedId);
+    // if(encryptedId){
+    //   const employeeId = EncryptDescrypt.decrypt(encryptedId);
+    //   console.log('Decrypted Employee ID:', employeeId);
+    //   this.employeeService.getEmployeeByUserId(employeeId).subscribe(data => {
+    //     this.employee = data;
+    //   });
+    // }
+  }
 
   RegisterEmp(empForm: NgForm): void {
-    // const loginData = empForm.value;
-    // console.log(loginData);
     const loginData: EmployeeModel = {
       firstName: this.employee.firstName,
       lastName: this.employee.lastName,
@@ -68,48 +81,48 @@ export class SignUpComponent implements OnInit {
     };
     console.log(loginData);
 
-    if (this.validateForm()) {
-      this.employeeService.saveEmployeeData(loginData).subscribe((success) => {
-        if (success) {
-          console.log('Data saved successfully');
-          this.signupService
-            .saveLoginData(loginData)
-            .pipe()
-            .subscribe({
-              next: (response) => {
-                console.log(JSON.stringify(response));
-                // alert(JSON.stringify(response));
-              },
-              error: (error) => {
-                console.log(JSON.stringify(error));
-                this.isServerError = true;
-                setTimeout(() => {
-                  this.isServerError = false;
-                }, 1000);
-                // alert(JSON.stringify(error));
-              },
-              complete: () => {
-                console.log(JSON.stringify('Complete'));
-                this.isSubmitted = true;
-                setTimeout(() => {
-                  this.isSubmitted = false;
-                }, 1000);
-                setTimeout(() => {
-                  this.router.navigate(['/login']);
-                }, 1000);
-                // alert(JSON.stringify("Complete"));
-              },
-            });
-        }
-      });
-    } else {
-      console.log('Validation failed');
-      this.isInvalid = true;
-      this.isSubmitted = true;
-      setTimeout(() => {
-        this.isSubmitted = false;
-      }, 900);
-    }
+    // if (this.validateForm()) {
+    //   this.employeeService.saveEmployeeData(loginData).subscribe((success) => {
+    //     if (success) {
+    //       console.log('Data saved successfully');
+    //       this.signupService
+    //         .saveLoginData(loginData)
+    //         .pipe()
+    //         .subscribe({
+    //           next: (response) => {
+    //             console.log(JSON.stringify(response));
+    //             // alert(JSON.stringify(response));
+    //           },
+    //           error: (error) => {
+    //             console.log(JSON.stringify(error));
+    //             this.isServerError = true;
+    //             setTimeout(() => {
+    //               this.isServerError = false;
+    //             }, 1000);
+    //             // alert(JSON.stringify(error));
+    //           },
+    //           complete: () => {
+    //             console.log(JSON.stringify('Complete'));
+    //             this.isSubmitted = true;
+    //             setTimeout(() => {
+    //               this.isSubmitted = false;
+    //             }, 1000);
+    //             setTimeout(() => {
+    //               this.router.navigate(['/login']);
+    //             }, 1000);
+    //             // alert(JSON.stringify("Complete"));
+    //           },
+    //         });
+    //     }
+    //   });
+    // } else {
+    //   console.log('Validation failed');
+    //   this.isInvalid = true;
+    //   this.isSubmitted = true;
+    //   setTimeout(() => {
+    //     this.isSubmitted = false;
+    //   }, 900);
+    // }
   }
 
   resetForm(): void {
@@ -226,25 +239,5 @@ export class SignUpComponent implements OnInit {
   imageToByte(base64String: string): void {
     const imageData = { imageData: base64String };
     this.employee.profilePic = imageData.imageData;
-    // console.log(this.employee.profilePic)
-    // this.http.post('http://localhost:5029/api/images', imageData)
-    //   .subscribe(response => {
-    //     console.log('Image saved successfully', response);
-    //   }, error => {
-    //     console.error('Error saving image', error);
-    //   });
-    // this.getImageFromDatabase(this.imageId)
   }
-
-  // getImageFromDatabase(imageId: number | undefined): void {
-  //   if (imageId !== undefined) {
-  //     this.http.get(`http://localhost:5029/api/images/${imageId}`, { responseType: 'blob' })
-  //       .subscribe(blob => {
-  //         const objectURL = URL.createObjectURL(blob);
-  //         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-  //       }, error => {
-  //         console.error('Error fetching image', error);
-  //       });
-  //   }
-  // }
 }
