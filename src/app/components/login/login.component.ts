@@ -17,11 +17,12 @@ export class LoginComponent {
 
   loginError = '';
   isInvalid = false;
+  isLogSubmitted = false;
 
   @Output() loginStatusChange = new EventEmitter<boolean>();
   @Output() signUpStatusChange = new EventEmitter<boolean>();
 
-  constructor(private employeeService: EmployeeService, private router: Router, private auth: AuthService) {}
+  constructor(private employeeService: EmployeeService, private router: Router, private auth: AuthService) { }
 
   onLogin(loginForm: NgForm): void {
     const loginData = loginForm.value;
@@ -38,11 +39,13 @@ export class LoginComponent {
         this.loginError = 'Invalid email or password!';
         this.isInvalid = true;
         this.loginStatusChange.emit(false);
+        this.isLogSubmitted = true;
+        setTimeout(() => { this.isLogSubmitted = false }, 900);
       }
     });
   }
 
-  onSignUp(){
+  onSignUp() {
     this.signUpStatusChange.emit(true);
   }
 
