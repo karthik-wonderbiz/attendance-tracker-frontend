@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { TableWithTabsComponent } from '../generic-components/table-with-tabs/table-with-tabs.component';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 import { SignalRService } from '../../../../services/signalR/signal-r.service';
@@ -13,8 +13,10 @@ import { Router } from '@angular/router';
 export class TopEmployeesComponent implements OnInit {
   @ViewChild('hoursTable') hoursTable: TableWithTabsComponent | undefined;
 
-  top5Employee: any[] = [];
-  allEmployeesData: any[] = [];
+  top5EmployeeIn: any[] = [];
+  top5EmployeeOut: any[] = [];
+  allEmployeesInData: any[] = [];
+  allEmployeesOutData: any[] = [];
   columns1 = [
     { key: 'fullName', label: 'Employee Name' },
     { key: 'totalHours', label: 'Total Hours' }
@@ -31,8 +33,10 @@ export class TopEmployeesComponent implements OnInit {
     { key: 'fullName', label: 'Employee Name' },
     { key: 'totalHours', label: 'Total Hours' }
   ];
-  tabNames = ['All Time', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];
-  tabs = ['All-Time', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];
+  tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All-Time'];
+  tabNames = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
+
+  isTabChanged: boolean = false;
 
   constructor(
     private attendanceLogService: AttendanceLogService,
@@ -44,24 +48,38 @@ export class TopEmployeesComponent implements OnInit {
     const startDate = '';
     const endDate = '';
     const reportType = 'Daily';
-
-    this.loadEmployeeData(startDate, endDate, reportType);
+    this.loadEmployeeInData(startDate, endDate, reportType);
+    this.loadEmployeeOutData(startDate, endDate, reportType);
     this.subscribeToItemUpdates();
   }
 
-  loadEmployeeData(startDate: string, endDate: string, reportType: string): void {
-    this.attendanceLogService.getAllEmployeesHours(startDate, endDate, reportType).subscribe((data) => {
-      this.top5Employee = data.slice(0, 5);
-      this.allEmployeesData = data;
-      console.log(`Top 5 Employee Data for ${reportType}:`, this.top5Employee);
+  loadEmployeeInData(startDate: string, endDate: string, reportType: string): void {
+    this.isTabChanged = true;
+    this.attendanceLogService.getAllEmployeesInHours().subscribe((data) => {
+      this.top5EmployeeIn = data.slice(0, 5);
+      this.allEmployeesInData = data;
+      this.isTabChanged=false;
+      console.log(`Top 5 Employee Data in for ${reportType}:`, this.top5EmployeeIn);
     });
   }
+
+  loadEmployeeOutData(startDate: string, endDate: string, reportType: string): void {
+    this.isTabChanged = true;
+    this.attendanceLogService.getAllEmployeesOutHours().subscribe((data) => {
+      this.top5EmployeeOut = data.slice(0, 5);
+      this.allEmployeesOutData = data;
+      this.isTabChanged=false;
+      console.log(`Top 5 Employee out Data for ${reportType}:`, this.top5EmployeeOut);
+    });
+  }
+
 
   // Method called when a tab is changed
   onTabChanged(reportType: string): void {
     const startDate = ''; 
     const endDate = '';
-    this.loadEmployeeData(startDate, endDate, reportType);
+    this.isTabChanged = true;
+    this.loadEmployeeInData(startDate, endDate, reportType);
   }
 
   // Subscribe to SignalR updates
@@ -69,7 +87,8 @@ export class TopEmployeesComponent implements OnInit {
     this.signalRService.itemUpdate$.subscribe(update => {
       if (update) {
         const activeTab = this.hoursTable?.activeTab || 'Daily'; // Get the currently active tab
-        this.loadEmployeeData('', '', activeTab); // Reload data for the active tab
+        this.loadEmployeeInData('', '', activeTab); // Reload data for the active tab
+        this.loadEmployeeOutData('', '', activeTab);
       }
     });
   }
@@ -77,5 +96,4 @@ export class TopEmployeesComponent implements OnInit {
   viewAll(type: string): void {
     this.router.navigate(['/admin/all-top-employees', type]);
   }
-  
 }

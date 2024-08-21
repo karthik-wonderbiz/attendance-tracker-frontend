@@ -22,6 +22,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ImgByteComponent } from './img-byte/img-byte.component';
 import { WebcamSnapshotModule } from "./components/webcam-snapshot/webcam-snapshot.module";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -40,8 +44,10 @@ import { WebcamSnapshotModule } from "./components/webcam-snapshot/webcam-snapsh
     BaseChartDirective,
     FullCalendarModule,
     HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
     WebcamSnapshotModule
-],
+  ],
   providers: [provideCharts(withDefaultRegisterables()), provideHttpClient(), DataService],
   bootstrap: [AppComponent]
 })

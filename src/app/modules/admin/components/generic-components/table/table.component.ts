@@ -12,6 +12,8 @@ export class TableComponent {
   @Output() rowClicked = new EventEmitter<any>();
   @Output() editClicked = new EventEmitter<any>();
   @Output() deleteClicked = new EventEmitter<any>();
+  
+  isLoaded: boolean = false;
 
   isObject(value: any): boolean {
     return value && typeof value === 'object' && !Array.isArray(value);

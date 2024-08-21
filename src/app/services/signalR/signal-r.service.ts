@@ -33,6 +33,7 @@ export class SignalRService {
     this.hubConnection.start().catch(err => console.error('SignalR Connection Error: ', err));
   }
 
+
   private registerSignalRListeners(): void {
     // Listener for item updates
     this.hubConnection.on('ReceiveItemUpdate', (userId: number, attendanceLogTime: Date, checkType: string) => {
@@ -40,8 +41,8 @@ export class SignalRService {
     });
 
     // Listener for user updates
-    this.hubConnection.on('ReceiveUserUpdate', (email: string, password: string, contactNo: string) => {
-      this.userUpdateSubject.next({ email, password, contactNo });
+    this.hubConnection.on('ReceiveSignUpUpdate', (firstName: string, lastName: string, email: string, contactNo: string, password: string, profilePic: string) => {
+      this.userUpdateSubject.next({firstName,lastName, email, password, contactNo, profilePic });
     });
 
     // Listener for employee updates

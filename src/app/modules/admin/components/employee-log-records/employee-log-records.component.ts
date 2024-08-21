@@ -3,31 +3,37 @@ import { AttendanceLogModel } from '../../../../model/AttendanceLog.model';
 import { AttendanceLogService } from '../../../../services/attendanceLog/attendance-log.service';
 import { SignalRService } from '../../../../services/signalR/signal-r.service'; // Import SignalR service
 import { ngxCsv } from 'ngx-csv';
-import { EncryptDescrypt, TimeFormatter } from '../../../../utils/genericFunction';
+import {
+  EncryptDescrypt,
+  TimeFormatter,
+} from '../../../../utils/genericFunction';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-log-records',
   templateUrl: './employee-log-records.component.html',
-  styleUrls: ['./employee-log-records.component.css'] // Fix styleUrls property name
+  styleUrls: ['./employee-log-records.component.css'], // Fix styleUrls property name
 })
 export class EmployeeLogRecordsComponent implements OnInit {
   @Input() employeeLogData: any[] = [];
-  @Output() rowClicked = new EventEmitter<any>();
 
-  // Search related properties
   allLogRecords: any[] = [];
   allSuggestions: string[] = [];
   filteredSuggestions: string[] = [];
   searchTerms: string[] = [];
   searchInput: string = '';
+  selectedDate: string = '';
+  selectedTab: string = '';
+
+  isDataLoaded: boolean = false;
 
   columns = [
     { key: 'fullName', label: 'Employee Name' },
-    { key: 'attendanceDate', label: 'Attendance Date' },
     { key: 'attendanceTime', label: 'Attendance Time' },
-    { key: 'checkType', label: 'Check Type' }
+    { key: 'checkType', label: 'Check Type' },
   ];
+  tabNames = ['In Out', 'In', 'Out'];
+  tabs = ['', 'IN', 'OUT'];
 
   constructor(
     private attendanceLogService: AttendanceLogService,
@@ -36,17 +42,39 @@ export class EmployeeLogRecordsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.selectedDate = this.getDefaultDate();
+    this.selectedTab = this.tabs[0] || ''; // Set default tab
     this.subscribeToItemUpdates();
-    this.getAllAttendanceLogs();
+    this.fetchAttendanceLogs();
+  }
+
+  onDateChange() {
+    console.log('Selected date:', this.selectedDate);
+    this.isDataLoaded = false;
+    this.fetchAttendanceLogs(); // Updated
+  }
+
+  getDefaultDate(): string {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
   }
 
   private subscribeToItemUpdates(): void {
-    this.signalRService.itemUpdate$.subscribe(update => {
+    this.signalRService.itemUpdate$.subscribe((update) => {
       console.log('Item update received:', update);
       if (update) {
         this.getAllAttendanceLogs();
       }
     });
+  }
+  onTabChanged(selectedTab: string): void {
+    this.isDataLoaded = false;
+    this.selectedTab = selectedTab;
+    this.fetchAttendanceLogs();
+  }
+
+  onFilteredDataChange(filteredData: any[]): void {
+    this.employeeLogData = filteredData;
   }
 
   exportToCSV() {
@@ -59,9 +87,9 @@ export class EmployeeLogRecordsComponent implements OnInit {
       showTitle: false,
       title: '',
       useBom: true,
-      headers: this.columns.map(col => col.label),
+      headers: this.columns.map((col) => col.label),
       noDownload: false,
-      removeEmptyValues: true
+      removeEmptyValues: true,
     };
 
     new ngxCsv(this.employeeLogData, options.filename, options);
@@ -86,36 +114,50 @@ export class EmployeeLogRecordsComponent implements OnInit {
     lastCheckInTime: '',
     lastCheckOutTime: '',
     status: '',
-    inTime: ''
+    inTime: '',
+  };
+
+  fetchAttendanceLogs() {
+    this.isDataLoaded = false;
+    if (this.selectedTab === '') {
+      this.getAllAttendanceLogs();
+    } else if (this.selectedTab === 'IN' || this.selectedTab === 'OUT') {
+      this.getAllAttendanceLogsInOut(this.selectedTab);
+    }
   }
 
   getAllAttendanceLogs() {
-    this.attendanceLogService.getAllAttendanceLogs().subscribe((data) => {
-      this.allLogRecords = data.reverse().map(log => {
-        const dateTime = new Date(log.attendanceLogTime);
-        return {
-          ...log,
-          attendanceDate: dateTime.toLocaleDateString(),
-          attendanceTime: TimeFormatter.formatTime(dateTime)
-        };
+    this.attendanceLogService
+      .getAllAttendanceLogs(this.selectedDate)
+      .subscribe((data) => {
+        this.processAttendanceLogs(data);
+        this.isDataLoaded = true;
       });
-      const uniqueNames = new Set(this.allLogRecords.map(log => log.fullName));
-      this.allSuggestions = Array.from(uniqueNames);
-      
-      this.performSearch();
-      console.log('Sorted and Transformed Data:', this.employeeLogData);
-    });
   }
-  
 
-  onRowClicked(employee: any) {
-    if (employee && employee.userId) {
-      console.log(employee.userId);
-      const encryptedId = EncryptDescrypt.encrypt(employee.userId.toString());
-      this.router.navigate(['/admin/employee-detail', encryptedId]);
-    } else {
-      console.error('Employee ID is missing or data is incorrect');
-    }
+  getAllAttendanceLogsInOut(currentType: string) {
+    this.attendanceLogService
+      .getAllAttendanceLogsInOut(this.selectedDate, currentType)
+      .subscribe((data) => {
+        this.processAttendanceLogs(data);
+        this.isDataLoaded = true;
+      });
+  }
+
+  processAttendanceLogs(data: AttendanceLogModel[]) {
+    this.allLogRecords = data.map((log) => {
+      const dateTime = new Date(log.attendanceLogTime);
+      return {
+        ...log,
+        attendanceDate: dateTime.toLocaleDateString(),
+        attendanceTime: TimeFormatter.formatTime(dateTime),
+      };
+    });
+    const uniqueNames = new Set(this.allLogRecords.map((log) => log.fullName));
+    this.allSuggestions = Array.from(uniqueNames);
+
+    this.performSearch();
+    console.log('Sorted and Transformed Data:', this.employeeLogData);
   }
 
   // Search related methods
@@ -168,5 +210,6 @@ export class EmployeeLogRecordsComponent implements OnInit {
       );
     }
     console.log('Filtered logs:', this.employeeLogData);
+    this.isDataLoaded = true;
   }
 }

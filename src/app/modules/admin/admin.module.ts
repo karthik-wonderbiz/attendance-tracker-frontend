@@ -33,6 +33,8 @@ import { TopEmployeesComponent } from './components/top-employees/top-employees.
 import { EmployeeLogRecordsComponent } from './components/employee-log-records/employee-log-records.component';
 import { AllEmployeesComponent } from './components/all-employees/all-employees.component';
 import { AllTopEmployeesComponent } from './components/all-top-employees/all-top-employees.component';
+import { UpdateEmployeeDetailsComponent } from './components/update-employee-details/update-employee-details.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { AllTopEmployeesComponent } from './components/all-top-employees/all-top
     EmployeeAttendanceRecordsComponent,
     EmployeeLogRecordsComponent,
     AllEmployeesComponent,
-    AllTopEmployeesComponent
+    AllTopEmployeesComponent,
+    UpdateEmployeeDetailsComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,

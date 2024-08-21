@@ -13,7 +13,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
   employee: EmployeeModel = {
@@ -70,7 +70,7 @@ export class SignUpComponent implements OnInit {
     private imageCompress: NgxImageCompressService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   RegisterEmp(empForm: NgForm): void {
     // const loginData = empForm.value;
@@ -83,10 +83,10 @@ export class SignUpComponent implements OnInit {
       password: this.employee.password,
       profilePic: this.employee.profilePic,
     };
-    console.log(loginData)
+    console.log(loginData);
 
     if (this.validateForm()) {
-      this.employeeService.saveEmployeeData(loginData).subscribe(success => {
+      this.employeeService.saveEmployeeData(loginData).subscribe((success) => {
         if (success) {
           // console.log("Data saved successfully");
           this.signupService.saveLoginData(loginData).pipe().subscribe({
@@ -112,13 +112,14 @@ export class SignUpComponent implements OnInit {
             }
           })
         }
-
       });
     } else {
-      console.log("Validation failed");
+      console.log('Validation failed');
       this.isInvalid = true;
       this.isSubmitted = true;
-      setTimeout(() => { this.isSubmitted = false }, 900);
+      setTimeout(() => {
+        this.isSubmitted = false;
+      }, 900);
     }
   }
 
@@ -220,10 +221,14 @@ export class SignUpComponent implements OnInit {
   }
 
   validateProfilePic(): boolean {
-    if (this.employee.profilePic == "" || this.employee.profilePic === null || this.employee.profilePic === undefined) {
-      return false
+    if (
+      this.employee.profilePic == '' ||
+      this.employee.profilePic === null ||
+      this.employee.profilePic === undefined
+    ) {
+      return false;
     }
-    return true
+    return true;
   }
 
   @Input() isNewUser?: boolean;
@@ -323,7 +328,7 @@ export class SignUpComponent implements OnInit {
 
   imageToByte(base64String: string): void {
     const imageData = { imageData: base64String };
-    this.employee.profilePic = imageData.imageData
+    this.employee.profilePic = imageData.imageData;
     // console.log(this.employee.profilePic)
     // this.http.post('http://localhost:5029/api/images', imageData)
     //   .subscribe(response => {
