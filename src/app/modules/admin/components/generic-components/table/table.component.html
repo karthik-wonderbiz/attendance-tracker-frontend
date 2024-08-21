@@ -165,7 +165,7 @@
           <ng-template #simpleContent>
             <ng-container *ngIf="column.key === 'fullName'; else defaultContent">
               <div class="flex items-center">
-                <img class="w-12 h-12 rounded-full border-3" [src]="'data:image/jpeg;base64,' + row.profilePic" alt="Employee image" [ngClass]="{
+                <img class="w-12 h-12 rounded-full object-cover border-3" [src]="'data:image/jpeg;base64,' + row.profilePic" alt="Employee image" [ngClass]="{
                   'border-green-500 dark:border-green-700': row.status === 'Present',
                   'border-red-500 dark:border-red-700': row.status === 'Absent',
                   'border-yellow-400 dark:border-yellow-700': !row.status
