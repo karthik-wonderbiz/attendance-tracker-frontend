@@ -1,22 +1,27 @@
-<div class="video-container" *ngIf="!error">
-    <video [class.show]="!isCaptured" [class.hide]="isCaptured" #video id="video" [width]="WIDTH" [height]="HEIGHT"
+<div class="video-container">
+    <!-- <video [class.show]="!isCaptured" [class.hide]="isCaptured" #video id="video" [width]="WIDTH" [height]="HEIGHT"
         autoplay></video>
     <canvas [class.show]="isCaptured" [class.hide]="!isCaptured" #canvas id="canvas" [width]="WIDTH"
         [height]="HEIGHT"></canvas>
+
+         -->
+    <video #video id="video" class="w-[180px] h-[180px] object-cover" autoplay
+        [ngClass]="{'hidden':isCaptured}"></video>
+    <!-- <img #profie [src]="capturedImage" class="object-cover w-[180px] h-[180px]" [ngClass]="{'hidden':!isCaptured}" /> -->
 </div>
 
 <div class="snap-container">
-    <button class="btn btn-primary" *ngIf="!isCaptured" (click)="capture()">Snap Photo</button>
-    <button class="btn btn-danger" *ngIf="isCaptured" (click)="removeCurrent()">Take Another</button>
+    <button class="btn btn-primary" (click)="capture()">Snap Photo</button>
+    <button class="btn btn-danger" (click)="removeCurrent()">Take Another</button>
 
-    <div *ngIf="error" class="text-danger mt-4">
+    <!-- <div *ngIf="error" class="text-danger mt-4">
         {{ error }}. Please click refresh
-    </div>
+    </div> -->
 </div>
 
 
 <!-- Display the captured image -->
-<div *ngIf="capturedImage">
+<!-- <div *ngIf="capturedImage">
     <h3>Captured Image:</h3>
     <img [src]="capturedImage" [width]="WIDTH" [height]="HEIGHT" />
-</div>
+</div> -->
